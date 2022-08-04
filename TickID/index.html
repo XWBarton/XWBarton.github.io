@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<script>
+		
+//Tick Attributes		
+		
+		const ticksp = [
+		
+		{ genus: 'Amblyomma', 
+		  species: 'trigutattum', 
+		  ornamentation: true, 
+		  eyes: true, 
+		  analgroove: 'posterior',
+		  festoons: true},
+		  
+		{ genus: 'Amblyomma', 
+		  species: 'australiense', 
+		  ornamentation: false, 
+		  eyes: true, 
+		  analgroove: 'posterior',
+		  festoons: true},
+		  
+		{ genus: 'Haemophysalis', 
+		  species: 'longicornis', 
+		  ornamentation: false, 
+		  eyes: false, 
+		  analgroove: 'posterior',
+		  festoons: true},
+		  
+		{ genus: 'Ixodes', 
+		  species: 'holocyclus', 
+		  ornamentation: false, 
+		  eyes: false, 
+		  analgroove: 'anterior',
+		  festoons: false},
+		
+		]
+		
+//Tick Sex Attributes		
+		
+		const ticksex = [
+		
+		{ sex: 'Female', scutum: "half_scutum" },
+		{ sex: 'Male', scutum: "full_scutum"}
+		
+		]
+
+//Tick Instar Attributes
+
+		const tickinstar = [
+		
+		{instar: 'larva', legs: 6, genitalpore: "absent"},
+		{instar: 'nymph', legs: 8, genitalpore: "absent"},
+		{instar: 'adult', legs: 8, genitalpore: "present"},
+		{instar: 'n/a', legs: 6, genitalpore: "present"}
+		
+		]
+
+//Variable Client Built Tick
+
+		var clientTick = {legs: '', genitalpore: '', scutum: ''};
+		
+//Functions
+		
+		
+		//On radio button click, fill clientTick object property
+		function onClick (data)	{
+
+			var radioButtons = document.getElementsByName(data);
+			for(var i = 0; i < radioButtons.length; i++)
+			{
+				if(radioButtons[i].checked == true)
+				{
+					var atribute = radioButtons[i].value; 
+						clientTick[data]=atribute
+				}
+			}
+			
+			console.log(clientTick);
+			
+			//Display clientTick Object in HTML
+			atributeList = JSON.stringify(clientTick);
+			document.getElementById("atributeDisplay").innerHTML = atributeList;
+			
+		}
+		
+		//Use the inputs gathered from tick instar atributes and diplay them
+		function displayInstar () {
+				
+					//Filter instar from instar parameters
+					filteredInstar = tickinstar.filter(instar=> instar.legs == clientTick.legs && instar.genitalpore == clientTick.genitalpore); 
+
+					//Isolate instar attribute
+					oneinstar = filteredInstar[0].instar
+
+					//Print instar to HTML
+					document.getElementById("instarDisplay").innerHTML = oneinstar;	
+						
+					
+				}
+				
+		function displaySex () {
+				
+					//Filter instar from instar parameters
+					var filteredSex = ticksex.filter(sex=> sex.scutum == clientTick.scutum); 
+
+					if (oneinstar == "adult"){var onesex = filteredSex[0].sex;}
+						else {var onesex = "n/a"}
+
+					//Print instar to HTML
+					document.getElementById("sexDisplay").innerHTML = onesex;	
+					
+					
+						
+					
+				}	
+				
+
+		</script>
+	</head>
+
+	<body>
+	
+		<h1> West Australian Tick ID </h1>
+		
+		<h2> Features of your tick: </h2>
+
+		<p><span id="atributeDisplay"></span></p>
+		
+		<div class="legs">
+		<p> Number of Legs </p>
+
+				<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=6>
+					<label for="six_legs"> 6 Legs</label><br>
+				<input type="radio" id="eight_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=8>
+					<label for="eight_legs"> 8 Legs</label><br>
+		</div>
+			 
+		<div class="genticalpore">	
+			<p> Genital Pore </p>
+			
+				<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="present">
+					<label for="presentpore"> Present</label><br>
+				<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="absent">
+					<label for="absentpore"> Absent</label><br>
+
+		</div class="sex">
+			<p> Sex (Adult ticks) </p>
+				
+				<input type="radio" id="half_scutum" name="scutum" onclick='onClick("scutum"); displaySex()' value="half_scutum">
+					<label for="halfscutum"> Half Scutum</label><br>
+				<input type="radio" id="full_scutum" name="scutum" onclick='onClick("scutum"); displaySex()' value="full_scutum">
+					<label for="halfscutum"> Full Scutum (Conscutum)</label><br>
+		</div>
+			
+
+			  
+			  
+	<h2> Tick Pool </h2>
+	
+	<h3> Instar </h3>
+	
+	<p><span id="instarDisplay"></span></p>
+	
+	<h3> Sex </h3>
+	
+	<p><span id="sexDisplay"></span></p>
+	
+	</body>
+</html>
