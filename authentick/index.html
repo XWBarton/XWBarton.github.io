@@ -6,35 +6,12 @@
 		
 //Tick Attributes		
 		
-		const ticksp = [
+		const tickgenus = [
 		
-		{ genus: 'Amblyomma', 
-		  species: 'trigutattum', 
-		  ornamentation: true, 
-		  eyes: true, 
-		  analgroove: 'posterior',
-		  festoons: true},
-		  
-		{ genus: 'Amblyomma', 
-		  species: 'australiense', 
-		  ornamentation: false, 
-		  eyes: true, 
-		  analgroove: 'posterior',
-		  festoons: true},
-		  
-		{ genus: 'Haemophysalis', 
-		  species: 'longicornis', 
-		  ornamentation: false, 
-		  eyes: false, 
-		  analgroove: 'posterior',
-		  festoons: true},
-		  
-		{ genus: 'Ixodes', 
-		  species: 'holocyclus', 
-		  ornamentation: false, 
-		  eyes: false, 
-		  analgroove: 'anterior',
-		  festoons: false},
+		{genus: "Amblyomma", eyes: true, festoons: true, ornamentation: true},
+		{genus: "Ixodes", eyes: false, festoons: false, ornamentation: false},
+		{genus: "Haemophysalis", eyes: false, festoons: true, ornamentation: false},
+		{genus: "Rhipicephalus:", eyes: true, festoons: true, ornamentation: false}
 		
 		]
 		
@@ -61,6 +38,8 @@
 //Variable Client Built Tick
 
 		var clientTick = {legs: '', genitalpore: '', scutum: ''};
+		
+		var clientGenus = {eyes: false, festoons: false, ornamentation: false};
 		
 //Functions
 		
@@ -97,25 +76,36 @@
 
 					//Print instar to HTML
 					document.getElementById("instarDisplay").innerHTML = oneinstar;	
-						
-					
-				}
-				
+		}
+		
+		//Use inputs gather to determine sex		
 		function displaySex () {
 				
 					//Filter instar from instar parameters
 					var filteredSex = ticksex.filter(sex=> sex.scutum == clientTick.scutum); 
-
+					
+					//Only output sex when Adult in selected
 					if (oneinstar == "adult"){var onesex = filteredSex[0].sex;}
 						else {var onesex = "n/a"}
 
 					//Print instar to HTML
 					document.getElementById("sexDisplay").innerHTML = onesex;	
-					
-					
-						
-					
-				}	
+		}
+
+		function genusSelect (feature) {
+			
+			if (document.getElementById(feature).checked) {
+				console.log("checked");
+				clientGenus[feature]=true;
+				console.log(clientGenus);
+				
+			} else {
+				console.log("unchecked");
+				clientGenus[feature]=false;
+				console.log(clientGenus);
+        }		
+		
+		}
 				
 
 		</script>
@@ -123,11 +113,13 @@
 
 	<body>
 	
-		<h1> West Australian Tick ID </h1>
+		<h1>Authentick - Tick ID </h1>
 		
 		<h2> Features of your tick: </h2>
 
-		<p><span id="atributeDisplay"></span></p>
+		<!<p><span id="atributeDisplay"></span></p>
+		
+		<p><span id="atributeDisplay"></span></p>		
 		
 		<div class="legs">
 		<p> Number of Legs </p>
@@ -142,21 +134,30 @@
 			<p> Genital Pore </p>
 			
 				<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="present">
-					<label for="presentpore"> Present</label><br>
+					<label for="presentpore">Present</label><br>
 				<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="absent">
-					<label for="absentpore"> Absent</label><br>
-
-		</div class="sex">
+					<label for="absentpore">Absent</label><br>
+					
+		</div>
+		<div class="sex">
 			<p> Sex (Adult ticks) </p>
 				
-				<input type="radio" id="half_scutum" name="scutum" onclick='onClick("scutum"); displaySex()' value="half_scutum">
-					<label for="halfscutum"> Half Scutum</label><br>
-				<input type="radio" id="full_scutum" name="scutum" onclick='onClick("scutum"); displaySex()' value="full_scutum">
-					<label for="halfscutum"> Full Scutum (Conscutum)</label><br>
+				<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="half_scutum">
+					<label for="halfscutum">Half Scutum</label><br>
+				<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="full_scutum">
+					<label for="halfscutum">Full Scutum (Conscutum)</label><br>
 		</div>
+		
+		<div class="genus">
+			<p> Genus wide features </p>
 			
-
-			  
+				<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes')">
+					<label for="eyes">Eyes</label><br>
+				<input type="checkbox" id="festoons" name="genus" onchange="genusSelect('festoons')">
+					<label for="festoons">Festoons</label><br>
+				<input type="checkbox" id="ornamentation" name="genus" onchange="genusSelect('ornamentation')">
+					<label for="eyes">Ornamentation</label><br>
+		</div>
 			  
 	<h2> Tick Pool </h2>
 	
