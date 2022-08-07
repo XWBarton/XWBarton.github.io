@@ -29,6 +29,19 @@ Charcoal: #333a44
 		
 		]
 		
+		const tickgenusScore = [
+		
+		//4 = Always true, 3 = mostly true 2 = mostly false, 1 = Always false
+		
+		//Colour patterning in hard ticks: https://doi.org/10.1093/jme/tjx173
+		
+		{genus: "Amblyomma", eyes: 4, festoons: 4, ornamentation: 4},
+		{genus: "Ixodes", eyes: 1, festoons: 1, ornamentation: 1},
+		{genus: "Haemophysalis", eyes: 1, festoons: 4, ornamentation: 1},
+		{genus: "Rhipicephalus", eyes: 4, festoons: 4, ornamentation: 2},
+		
+		]
+		
 		const speciesAmblyomma = [
 		
 		{genus: "Amblyomma", species: "trigutattum"},
@@ -120,6 +133,7 @@ Charcoal: #333a44
 					//Print instar to HTML
 					document.getElementById("sexDisplay").innerHTML = onesex;	
 		}
+		
 
 		function genusSelect (feature) {
 			
@@ -155,7 +169,7 @@ Charcoal: #333a44
 		//Display species id
 		function displaySpeciesKey () {
 		
-		if(pickedGenus == "Amblyomma")
+		if(document.getElementById("Amblyomma").style.color == "green")
 			{document.getElementById("Amblyomma_check").style.display = "block";}
 		else {document.getElementById("Amblyomma_check").style.display = "none";}
 			
@@ -197,6 +211,69 @@ Charcoal: #333a44
 							haemophysalis.style.color = "red"}
 		}
 		
+		
+		function featureScore (feature) {
+		
+			/*
+			{genus: "Amblyomma", eyes: 4, festoons: 4, ornamentation: 3},
+			{genus: "Ixodes", eyes: 1, festoons: 1, ornamentation: 1},
+			{genus: "Haemophysalis", eyes: 1, festoons: 4, ornamentation: 1},
+			{genus: "Rhipicephalus", eyes: 4, festoons: 4, ornamentation: 2},
+			*/
+		
+			const genusFeatures = ["eyes", "festoons", "ornamentation"];
+			const genera = ["Amblyomma", "Ixodes", "Haemophysalis", "Rhipicephalus"];
+			
+			const tickColour = {Amblyomma: "frog", Ixodes: "beans", Haemophysalis: "edith", Rhipicephalus: "dingo"};
+			
+			
+
+			/*  if (tickgenusScore[i][feature] == 4){document.getElementById(i).style.color = "green";}
+				
+				if (tickgenusScore[i][feature] == 3) {document.getElementById(i).style.color = "yellow";}
+				
+				if (tickgenusScore[i][feature] == 2) {document.getElementById(i).style.color = "orange";}
+
+				if (tickgenusScore[i][feature] == 1) {document.getElementById(i).style.color = "red";}*/
+				
+			//Evaluate Colour
+
+			for (n = 0; n < 4; n++){
+			
+			if(tickColour[genera[n]] != "red"){
+				if(tickgenusScore[n][feature] == 1){tickColour[genera[n]] = "red"}
+				if(tickgenusScore[n][feature] == 2){tickColour[genera[n]] = "#f8d210"}
+				if(tickgenusScore[n][feature] == 3){tickColour[genera[n]] = "#ff8300"}
+				if(tickgenusScore[n][feature] == 4){tickColour[genera[n]] = "green"}
+				}
+				}
+			
+			
+			
+			//Change colour of html
+		
+			if(clientGenus[feature] == true)
+			{
+				var genusName = Object.keys(tickColour)
+				var colourName = Object.values(tickColour)
+				
+
+					for(let i = 0; i < 4; i++){	
+					
+						console.log(i+" - "+genusName[i]+" : "+colourName[i]);
+						
+						//Once value = red do not change NOT WORKING!!!!
+
+						document.getElementById(genusName[i]).style.color = colourName[i]
+
+			}
+			
+			}
+			}
+
+			
+		
+		
 		//clears checkboxes
 		window.onload = function(){
 		   var checkboxes = document.getElementsByTagName("INPUT");
@@ -214,6 +291,8 @@ Charcoal: #333a44
 		var pickedGenus = "";
 		var pickedSex = "";
 		var pickedInstar = "";
+		
+
 
 		</script>
 	</head>
@@ -258,13 +337,15 @@ Charcoal: #333a44
 		<div class="genus">
 			<p> Genus wide features </p>
 			
-				<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes'); displayGenus(); displaySpeciesKey(); changeColour();">
+				<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes'); featureScore('eyes');">
 					<label for="eyes">Eyes</label><br>
-				<input type="checkbox" id="festoons" name="genus" onchange="genusSelect('festoons'); displayGenus(); displaySpeciesKey(); changeColour();">
+				<input type="checkbox" id="festoons" name="genus" onchange="genusSelect('festoons'); featureScore('festoons');">
 					<label for="festoons">Festoons</label><br>
-				<input type="checkbox" id="ornamentation" name="genus" onchange="genusSelect('ornamentation'); displayGenus(); displaySpeciesKey(); changeColour();">
+				<input type="checkbox" id="ornamentation" name="genus" onchange="genusSelect('ornamentation'); featureScore('ornamentation');">
 					<label for="eyes">Ornamentation</label><br>
 		</div>
+		
+		<!-- displayGenus(); displaySpeciesKey(); changeColour()-->
 		
 		<div class="species">
 			<p> Species features </p>
@@ -290,27 +371,37 @@ Charcoal: #333a44
 	
 	<h3> Species </h3>
 	
+	<p style="color: green ;"> Green: Likely </p>
+	
+	<p style="color: #f8d210;"> Yellow: Less Likely </p>
+	
+	<p style="color: #ff8300;"> Orange: Infrequently </p>
+	
+	<p style="color: red;"> Red: Unlikely </p>
+	
 	<!--<p> (temp) genus: </p>
 	<p><span id="genusDisplay"></span></p>-->
 	
 	<div class="pool">
-		<div class="Amblyomma" id="Amblyomma_taxa">
+		<div class="Amblyomma" id="Amblyomma">
 			<p><i>Amblyomma trigutattum</i></p>
 			<p><i>Amblyomma australienses</i></p>	
 			<p><i>Amblyomma albolimbatum</i></p>	
 		</div>
 		
-		<div class="Ixodes" id="Ixodes_taxa">
+		<div class="Ixodes" id="Ixodes">
 			<p><i>Ixodes australiensis</i></p>	
 		</div>
 		
-		<div class="Rhipicephalus" id="Rhipicephalus_taxa">
+		<div class="Haemophysalis" id="Haemophysalis">
+			<p><i>Haemophysalis sp.</i></p>	
+		</div>
+		
+		<div class="Rhipicephalus" id="Rhipicephalus">
 			<p><i>Rhipicephalus sp.</i></p>	
 		</div>
 		
-		<div class="Haemophysalis" id="Haemophysalis_taxa">
-			<p><i>Haemophysalis sp.</i></p>	
-		</div>
+
 	</div>
 	
 	</body>
