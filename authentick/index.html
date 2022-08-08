@@ -15,10 +15,8 @@ Charcoal: #333a44
 	<title>AuthenTICK</title>
 	
 		<script>
-//Packages
-
-		
-//Tick Attributes		
+        
+            //Tick Attributes		
 
 		//if true it means atleast one species or population in genus has the feature, doesnt nesseally mean all 
 		// true = may or may not have feature
@@ -45,22 +43,8 @@ Charcoal: #333a44
 		{genus: "Rhipicephalus", eyes: 4, festoons: 4, ornamentation: 2},
 		
 		]
-		
-		const speciesAmblyomma = [
-		
-		{genus: "Amblyomma", species: "trigutattum"},
-		{genus: "Amblyomma", species: "australienses"},
-		{genus: "Amblyomma", species: "albolimbatum"},
-		
-		]
-		
-		const speciesIxodes = [
-		
-		{genus: "Ixodes", species: "australiensis"},
-		
-		]
-		
-//Tick Sex Attributes		
+
+        //Tick Sex Attributes		
 		
 		const ticksex = [
 		
@@ -69,7 +53,7 @@ Charcoal: #333a44
 		
 		]
 
-//Tick Instar Attributes
+        //Tick Instar Attributes
 
 		const tickinstar = [
 		
@@ -80,246 +64,108 @@ Charcoal: #333a44
 		
 		]
 
-//Variable Client Built Tick
+        //Variable Client Built Tick
 
 		var clientTick = {legs: '', genitalpore: '', scutum: ''};
 		
 		var clientGenus = {eyes: false, festoons: false, ornamentation: false};
-		
-//Functions
-		
-		
-		//On radio button click, fill clientTick object property
-		function onClick (data)	{
 
-			var radioButtons = document.getElementsByName(data);
-			for(var i = 0; i < radioButtons.length; i++)
-			{
-				if(radioButtons[i].checked == true)
-				{
-					var atribute = radioButtons[i].value; 
-						clientTick[data]=atribute
-				}
-			}
-			
-			console.log(clientTick);
-			
-			//Display clientTick Object in HTML
-			//atributeList = JSON.stringify(clientTick);
-			//document.getElementById("atributeDisplay").innerHTML = atributeList;
-			
-		}
-		
+        //Functions
+
+        function onClick (data)	{
+
+        var radioButtons = document.getElementsByName(data);
+        for(var i = 0; i < radioButtons.length; i++)
+        {
+             if(radioButtons[i].checked == true)
+            {
+                 var atribute = radioButtons[i].value; 
+                clientTick[data]=atribute
+            }
+        }
+
+        console.log(clientTick);
+
+        }
+
 		//Use the inputs gathered from tick instar atributes and diplay them
 		function displayInstar () {
 				
-					//Filter instar from instar parameters
-					filteredInstar = tickinstar.filter(instar=> instar.legs == clientTick.legs && instar.genitalpore == clientTick.genitalpore); 
+                //Filter instar from instar parameters
+                filteredInstar = tickinstar.filter(instar=> instar.legs == clientTick.legs && instar.genitalpore == clientTick.genitalpore); 
 
-					//Isolate instar attribute
-					oneinstar = filteredInstar[0].instar
+                //Isolate instar attribute
+                oneinstar = filteredInstar[0].instar
 
-					//Print instar to HTML
-					pickedInstar = oneinstar;
-					document.getElementById("instarDisplay").innerHTML = oneinstar;	
-		}
-		
+                //Print instar to HTML
+                pickedInstar = oneinstar;
+                document.getElementById("instarDisplay").innerHTML = oneinstar;	
+        }
+
 		//Use inputs gather to determine sex		
 		function displaySex () {
 				
-					//Filter instar from instar parameters
-					var filteredSex = ticksex.filter(sex=> sex.scutum == clientTick.scutum); 
-					
-					//Only output sex when Adult in selected
-					if (pickedInstar == "adult"){var onesex = filteredSex[0].sex;}
-						else {var onesex = "n/a"}
+                //Filter instar from instar parameters
+                var filteredSex = ticksex.filter(sex=> sex.scutum == clientTick.scutum); 
+                
+                //Only output sex when Adult in selected
+                if (pickedInstar == "adult"){var onesex = filteredSex[0].sex;}
+                    else {var onesex = "n/a"}
 
-					//Print instar to HTML
-					document.getElementById("sexDisplay").innerHTML = onesex;	
-		}
+                //Print instar to HTML
+                document.getElementById("sexDisplay").innerHTML = onesex;	
+    }
+        
+        window.onload = function(){
+		
+			const featuresid = ["eyes", "festoons", "ornamentation"]
+
+            for(i = 0; i < 3; i++){
+                var dropDown = document.getElementById(featuresid[i]).selectedIndex = 0;  
+            }
+        }
+		
+		function genusSelect (value) {
+		
+		const eyes = document.getElementById("eyes")
+		const festoons = document.getElementById("festoons")
+		const ornamentation = document.getElementById("ornamentation")
+		
+		const genus = ["Amblyomma", 
+					   "Ixodes",
+					   "Haemophysalis",
+					   "Rhipicephalus", ]
+							 
+		const frog = Object.values(tickgenus)
+		
+		const featuresid = ["eyes", "festoons", "ornamentation"]
+							 
 		
 
-		function genusSelect (feature) {
 
-			console.log(feature);
-			
-			if (document.getElementById(feature).checked) {
-				console.log("checked");
-				clientGenus[feature]=true;
-				console.log(clientGenus);	
-			} 
-			else {
-				console.log("unchecked");
-				clientGenus[feature]=false;
-				console.log(clientGenus);
-        	}
-		}		
-		
-		
-		
-		//Determine genus
-		function displayGenus () {
-		
-		//Filter genus
-		filteredGenus = tickgenus.filter(genus=> genus.eyes == clientGenus.eyes && genus.festoons == clientGenus.festoons && genus.ornamentation == clientGenus.ornamentation); 
-		
-		//Isolate genus
-		if(typeof filteredGenus[0] == 'undefined'){onegenus = "n/a"}
-		else {onegenus = filteredGenus[0].genus};
-		
-		//Print genus to HTML
-		pickedGenus = onegenus;
-
-	
-		}
-		
-		//Display species id
-		function displaySpeciesKey () {
-		
-		if(document.getElementById("Amblyomma").style.color == "green")
-			{document.getElementById("Amblyomma_check").style.display = "block";}
-		else {document.getElementById("Amblyomma_check").style.display = "none";}
-			
-			console.log(pickedGenus);
-		}
-		
-		//Colour key
-		function changeColour (){
-		
-			const amblyomma = document.getElementById("Amblyomma_taxa");
-			const ixodes = document.getElementById("Ixodes_taxa");
-			const rhipicephalus = document.getElementById("Rhipicephalus_taxa");
-			const haemophysalis = document.getElementById("Haemophysalis_taxa");
-			
-			if(pickedGenus == "Amblyomma")
-			{amblyomma.style.color = "green"; 
-			 ixodes.style.color = "red"; 
-			 rhipicephalus.style.color = "red"; 
-			 haemophysalis.style.color = "red"}
-			else if(pickedGenus == "Ixodes")
-				{amblyomma.style.color = "red"; 
-				 ixodes.style.color = "green";
-				 rhipicephalus.style.color = "red"; 
-			     haemophysalis.style.color = "red"}
-				else if(pickedGenus == "Haemophysalis")
-					{amblyomma.style.color = "red"; 
-					 ixodes.style.color = "red";
-					 rhipicephalus.style.color = "red"; 
-					 haemophysalis.style.color = "green"}
-					else if(pickedGenus == "Rhipicephalus")
-						{amblyomma.style.color = "red"; 
-						 ixodes.style.color = "red";
-						 rhipicephalus.style.color = "green"; 
-			             haemophysalis.style.color = "red"}
-						 else if(pickedGenus == "n/a")
-							{amblyomma.style.color = "red"; 
-							ixodes.style.color = "red";
-							rhipicephalus.style.color = "red"; 
-							haemophysalis.style.color = "red"}
-		}
-		
-		
-		function featureScore (feature) {
-		
-			/*
-			{genus: "Amblyomma", eyes: 4, festoons: 4, ornamentation: 3},
-			{genus: "Ixodes", eyes: 1, festoons: 1, ornamentation: 1},
-			{genus: "Haemophysalis", eyes: 1, festoons: 4, ornamentation: 1},
-			{genus: "Rhipicephalus", eyes: 4, festoons: 4, ornamentation: 2},
-			*/
-		
-			const genusFeatures = ["eyes", "festoons", "ornamentation"];
-			const genera = ["Amblyomma", "Ixodes", "Haemophysalis", "Rhipicephalus"];
-			
-			const tickColour = {Amblyomma: "frog", Ixodes: "beans", Haemophysalis: "edith", Rhipicephalus: "dingo"};
-			
-			//Evaluate Colour
-
-			for (n = 0; n < 4; n++){
-			
-			// NOT WORKING!!!!!!! if(tickColour[genera[n]] != "red"){ 
-				if(tickgenusScore[n][feature] == 1){tickColour[genera[n]] = "red"}
-				if(tickgenusScore[n][feature] == 2){tickColour[genera[n]] = "#f8d210"}
-				if(tickgenusScore[n][feature] == 3){tickColour[genera[n]] = "#ff8300"}
-				if(tickgenusScore[n][feature] == 4){tickColour[genera[n]] = "green"}
+			if(eyes.options[eyes.selectedIndex].value == "yes"){
+				//console.log("Eyes YES");
+				for (i = 0; i < 4; i++){
+					if(frog[i].eyes == true){
+						document.getElementById(genus[i]).style.color = "green";
+						console.log();
+					}
+					else {}
 				}
-			
-			//Change colour of html
+			}
+			else if (eyes.options[eyes.selectedIndex].value == "no"){ 
+				console.log("Eyes NO");
+			}
+			else if (eyes.options[eyes.selectedIndex].value == "unsure"){	
+			//console.log("Eyes UNSURE");
+			}
 		
-			if(clientGenus[feature] == true)
-			{
-				var genusName = Object.keys(tickColour)
-				var colourName = Object.values(tickColour)
-				
-
-					for(let i = 0; i < 4; i++){	
-					
-						console.log(i+" - "+genusName[i]+" : "+colourName[i]);
-						
-				// NOT WORKING!!!!!!! if(tickColour[genera[n]] != "red"){}
-						document.getElementById(genusName[i]).style.color = colourName[i]
-
-						}
-			
-			}
-		}	
-	
-		//clears checkboxes
-		window.onload = function(){
-		   var checkboxes = document.getElementsByTagName("INPUT");
-
-		   for(var x=0; x<checkboxes.length; x++)
-		   {
-			  if(checkboxes[x].type == "checkbox")
-			  {
-				  checkboxes[x].checked = false;
-			  }
-		   }
-
-		}
-		
-		function genusPicker () {
-
-			const amblyomma = document.getElementById("Amblyomma")
-			const ixodes = document.getElementById("Ixodes")
-			const haemophysalis = document.getElementById("Haemophysalis")
-			const rhipicephalus = document.getElementById("Rhipicephalus")
-
-
-			if(clientGenus.eyes == false && clientGenus.festoons == false && clientGenus.ornamentation == false){
-				amblyomma.style.color = "red";
-				rhipicephalus.style.color = "red";
-				ixodes.style.color = "green";
-				haemophysalis.style.color = "red";
-			}
-			else if (clientGenus.ornamentation == true) {
-				amblyomma.style.color = "orange";
-				rhipicephalus.style.color = "orange";
-				ixodes.style.color = "red";
-				haemophysalis.style.color = "red"
-			}
-			else if(clientGenus.eyes == true){
-				amblyomma.style.color = "green";
-				rhipicephalus.style.color = "green";
-				ixodes.style.color = "red";
-				haemophysalis.style.color = "red";
-			}
-			else if (clientGenus.festoons == true){
-				amblyomma.style.color = "green";
-				rhipicephalus.style.color = "green";
-				ixodes.style.color = "red";
-				haemophysalis.style.color = "green"
-			}
-			
-
-
 		}
 
+        </script>
+    </head>
 
-		</script>
-	</head>
-
-	<body>
+    <body>
 	
 		<h1>AuthenTICK</h1>
 		
@@ -357,29 +203,37 @@ Charcoal: #333a44
 		</div>
 		
 		<div class="genus">
-			<p> Genus wide features </p>
+			<p> Genus Features </p>
+            
+                <label for="eyes">Eyes Present: </label>
+                <select name="eyes" id="eyes" onclick="genusSelect(this.value);">
+                    <option value="unsure">Unsure</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+
+                <label for="festoons">Festoons Present: </label>
+                <select name="festoons" id="festoons">
+                    <option value="unsure">Unsure</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+
+                <label for="ornamentation">Ornamentation Present: </label>
+                <select name="ornamentation" id="ornamentation">
+                    <option value="unsure">Unsure</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+		</div>		
 			
-				<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes'); genusPicker();">
+				<!--<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes'); genusPicker();">
 					<label for="eyes">Eyes</label><br>
 				<input type="checkbox" id="festoons" name="genus" onchange="genusSelect('festoons'); genusPicker();">
 					<label for="festoons">Festoons</label><br>
 				<input type="checkbox" id="ornamentation" name="genus" onchange="genusSelect('ornamentation'); genusPicker();">
-					<label for="eyes">Ornamentation</label><br>
+					<label for="eyes">Ornamentation</label><br>-->
 		</div>
-		
-		<!-- displayGenus(); displaySpeciesKey(); changeColour()-->
-		<!--
-		<div class="species">
-			<p> Species features </p>
-				
-				<div class="Amblyomma" id="Amblyomma_check">
-				<input type="checkbox" id="lateral_grooves" name="species" onchange="">
-					<label for="eyes">Lateral grooves well defined</label><br>
-				<input type="checkbox" id="lacks_ornamentation" name="species" onchange="">
-					<label for="eyes">Lacks ornamentation</label><br>
-				</div>
-		</div>
-	-->	
 			  
 	<h2> Tick Pool </h2>
 	
