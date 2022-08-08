@@ -226,16 +226,6 @@ Charcoal: #333a44
 			
 			const tickColour = {Amblyomma: "frog", Ixodes: "beans", Haemophysalis: "edith", Rhipicephalus: "dingo"};
 			
-			
-
-			/*  if (tickgenusScore[i][feature] == 4){document.getElementById(i).style.color = "green";}
-				
-				if (tickgenusScore[i][feature] == 3) {document.getElementById(i).style.color = "yellow";}
-				
-				if (tickgenusScore[i][feature] == 2) {document.getElementById(i).style.color = "orange";}
-
-				if (tickgenusScore[i][feature] == 1) {document.getElementById(i).style.color = "red";}*/
-				
 			//Evaluate Colour
 
 			for (n = 0; n < 4; n++){
@@ -246,9 +236,6 @@ Charcoal: #333a44
 				if(tickgenusScore[n][feature] == 3){tickColour[genera[n]] = "#ff8300"}
 				if(tickgenusScore[n][feature] == 4){tickColour[genera[n]] = "green"}
 				}
-				
-			
-			
 			
 			//Change colour of html
 		
@@ -269,10 +256,7 @@ Charcoal: #333a44
 			
 			}
 		}	
-
-			
-		
-		
+	
 		//clears checkboxes
 		window.onload = function(){
 		   var checkboxes = document.getElementsByTagName("INPUT");
@@ -290,8 +274,6 @@ Charcoal: #333a44
 		var pickedGenus = "";
 		var pickedSex = "";
 		var pickedInstar = "";
-		
-
 
 		</script>
 	</head>
