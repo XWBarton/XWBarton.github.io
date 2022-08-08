@@ -240,13 +240,13 @@ Charcoal: #333a44
 
 			for (n = 0; n < 4; n++){
 			
-			if(tickColour[genera[n]] != "red"){
+			// NOT WORKING!!!!!!! if(tickColour[genera[n]] != "red"){ 
 				if(tickgenusScore[n][feature] == 1){tickColour[genera[n]] = "red"}
 				if(tickgenusScore[n][feature] == 2){tickColour[genera[n]] = "#f8d210"}
 				if(tickgenusScore[n][feature] == 3){tickColour[genera[n]] = "#ff8300"}
 				if(tickgenusScore[n][feature] == 4){tickColour[genera[n]] = "green"}
 				}
-				}
+				
 			
 			
 			
@@ -262,14 +262,13 @@ Charcoal: #333a44
 					
 						console.log(i+" - "+genusName[i]+" : "+colourName[i]);
 						
-						//Once value = red do not change NOT WORKING!!!!
-
+				// NOT WORKING!!!!!!! if(tickColour[genera[n]] != "red"){}
 						document.getElementById(genusName[i]).style.color = colourName[i]
 
-			}
+						}
 			
 			}
-			}
+		}	
 
 			
 		
