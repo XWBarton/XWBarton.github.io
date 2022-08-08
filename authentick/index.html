@@ -19,13 +19,17 @@ Charcoal: #333a44
 
 		
 //Tick Attributes		
+
+		//if true it means atleast one species or population in genus has the feature, doesnt nesseally mean all 
+		// true = may or may not have feature
+		// false = does not have feature
 		
 		const tickgenus = [
 		
 		{genus: "Amblyomma", eyes: true, festoons: true, ornamentation: true},
 		{genus: "Ixodes", eyes: false, festoons: false, ornamentation: false},
 		{genus: "Haemophysalis", eyes: false, festoons: true, ornamentation: false},
-		{genus: "Rhipicephalus", eyes: true, festoons: true, ornamentation: false},
+		{genus: "Rhipicephalus", eyes: true, festoons: true, ornamentation: true},
 		
 		]
 		
@@ -136,19 +140,22 @@ Charcoal: #333a44
 		
 
 		function genusSelect (feature) {
+
+			console.log(feature);
 			
 			if (document.getElementById(feature).checked) {
 				console.log("checked");
 				clientGenus[feature]=true;
-				console.log(clientGenus);
-				
-			} else {
+				console.log(clientGenus);	
+			} 
+			else {
 				console.log("unchecked");
 				clientGenus[feature]=false;
 				console.log(clientGenus);
-        }		
+        	}
+		}		
 		
-		}
+		
 		
 		//Determine genus
 		function displayGenus () {
@@ -270,10 +277,44 @@ Charcoal: #333a44
 		   }
 
 		}
-	
-		var pickedGenus = "";
-		var pickedSex = "";
-		var pickedInstar = "";
+		
+		function genusPicker () {
+
+			const amblyomma = document.getElementById("Amblyomma")
+			const ixodes = document.getElementById("Ixodes")
+			const haemophysalis = document.getElementById("Haemophysalis")
+			const rhipicephalus = document.getElementById("Rhipicephalus")
+
+
+			if(clientGenus.eyes == false && clientGenus.festoons == false && clientGenus.ornamentation == false){
+				amblyomma.style.color = "red";
+				rhipicephalus.style.color = "red";
+				ixodes.style.color = "green";
+				haemophysalis.style.color = "red";
+			}
+			else if (clientGenus.ornamentation == true) {
+				amblyomma.style.color = "orange";
+				rhipicephalus.style.color = "orange";
+				ixodes.style.color = "red";
+				haemophysalis.style.color = "red"
+			}
+			else if(clientGenus.eyes == true){
+				amblyomma.style.color = "green";
+				rhipicephalus.style.color = "green";
+				ixodes.style.color = "red";
+				haemophysalis.style.color = "red";
+			}
+			else if (clientGenus.festoons == true){
+				amblyomma.style.color = "green";
+				rhipicephalus.style.color = "green";
+				ixodes.style.color = "red";
+				haemophysalis.style.color = "green"
+			}
+			
+
+
+		}
+
 
 		</script>
 	</head>
@@ -318,16 +359,16 @@ Charcoal: #333a44
 		<div class="genus">
 			<p> Genus wide features </p>
 			
-				<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes'); featureScore('eyes');">
+				<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes'); genusPicker();">
 					<label for="eyes">Eyes</label><br>
-				<input type="checkbox" id="festoons" name="genus" onchange="genusSelect('festoons'); featureScore('festoons');">
+				<input type="checkbox" id="festoons" name="genus" onchange="genusSelect('festoons'); genusPicker();">
 					<label for="festoons">Festoons</label><br>
-				<input type="checkbox" id="ornamentation" name="genus" onchange="genusSelect('ornamentation'); featureScore('ornamentation');">
+				<input type="checkbox" id="ornamentation" name="genus" onchange="genusSelect('ornamentation'); genusPicker();">
 					<label for="eyes">Ornamentation</label><br>
 		</div>
 		
 		<!-- displayGenus(); displaySpeciesKey(); changeColour()-->
-		
+		<!--
 		<div class="species">
 			<p> Species features </p>
 				
@@ -338,7 +379,7 @@ Charcoal: #333a44
 					<label for="eyes">Lacks ornamentation</label><br>
 				</div>
 		</div>
-			
+	-->	
 			  
 	<h2> Tick Pool </h2>
 	
@@ -353,10 +394,10 @@ Charcoal: #333a44
 	<h3> Species </h3>
 	
 	<p style="color: green ;"> Green: Likely </p>
-	
+	<!--
 	<p style="color: #f8d210;"> Yellow: Less Likely </p>
-	
-	<p style="color: #ff8300;"> Orange: Infrequently </p>
+	-->
+	<p style="color: #ff8300;"> Orange: Further discrimination required </p>
 	
 	<p style="color: red;"> Red: Unlikely </p>
 	
@@ -365,13 +406,14 @@ Charcoal: #333a44
 	
 	<div class="pool">
 		<div class="Amblyomma" id="Amblyomma">
+			<p><i>Amblyomma sp.</p></i></p><!--
 			<p><i>Amblyomma trigutattum</i></p>
 			<p><i>Amblyomma australienses</i></p>	
-			<p><i>Amblyomma albolimbatum</i></p>	
+			<p><i>Amblyomma albolimbatum</i></p>	-->
 		</div>
 		
 		<div class="Ixodes" id="Ixodes">
-			<p><i>Ixodes australiensis</i></p>	
+			<p><i>Ixodes sp.</i></p>	
 		</div>
 		
 		<div class="Haemophysalis" id="Haemophysalis">
