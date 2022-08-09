@@ -252,7 +252,7 @@ Charcoal: #333a44
 		
 		function resetDropDown (){
 		
-			const featuresid = ["eyes", "festoons", "ornamentation"]
+			const featuresid = ["eyes", "festoons", "ornamentation",]
 			
 			console.log(featuresid[0]);
 			
@@ -334,7 +334,7 @@ Charcoal: #333a44
                 </select>
 
                 <label for="ornamentation">Ornamentation Present: </label>
-                <select name="ornamentation" id="ornamentation" onchange="genusSelect(); colouring(); disableDropDown('eyes');">
+                <select name="ornamentation" id="ornamentation" onchange="genusSelect(); colouring(); disableDropDown('ornamentation');">
 					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
@@ -366,15 +366,15 @@ Charcoal: #333a44
 	
 	<div class=scale style="background-color:#eeede7;">
 	
-	<p><i> Likelihood Scale <p>
+	<p><i> Confidence Scale <p>
 	
-	<p style="color: green ;"> Green: Most Likely </p>
+	<p style="color: green ;"> Green: Very High Confidence </p>
 	
-	<p style="color: #f8d210;"> Yellow Less Likely</p>
+	<p style="color: #f8d210;">Yellow: High Confience</p>
 	
-	<p style="color: #ff8300;"> Orange Not Likely  </p>
+	<p style="color: #ff8300;">Orange: Moderate Confidence  </p>
 	
-	<p style="color: red;"> Red: Least Likely<i/> </p>
+	<p style="color: red;"> Red: Low Confidence<i/> </p>
 	
 	</div>
 	
