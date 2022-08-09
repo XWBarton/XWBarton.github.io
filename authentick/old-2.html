@@ -63,19 +63,12 @@ Charcoal: #333a44
 		{instar: 'n/a', legs: 6, genitalpore: "present"}
 		
 		]
-		
-		const genus = ["Amblyomma", 
-					   "Ixodes",
-					   "Haemophysalis",
-					   "Rhipicephalus", ]
 
         //Variable Client Built Tick
 
 		var clientTick = {legs: '', genitalpore: '', scutum: ''};
 		
 		var clientGenus = {eyes: false, festoons: false, ornamentation: false};
-		
-		const scoreCard = {Amblyomma: 0, Ixodes: 0, Haemophysalis: 0, Rhipicephalus: 0}
 
         //Functions
 
@@ -138,119 +131,81 @@ Charcoal: #333a44
 		const festoons = document.getElementById("festoons")
 		const ornamentation = document.getElementById("ornamentation")
 		
-		
+		const genus = ["Amblyomma", 
+					   "Ixodes",
+					   "Haemophysalis",
+					   "Rhipicephalus", ]
 							 
 		const ticklist = Object.values(tickgenus)
 		
 		const featuresid = ["eyes", "festoons", "ornamentation"]
 							 
+			if(eyes.options[eyes.selectedIndex].value == "unsure" && 
+			   festoons.options[festoons.selectedIndex].value == "unsure" &&
+			   ornamentation.options[ornamentation.selectedIndex].value == "unsure"){
+				for(i = 0; i < 4; i++){
+					document.getElementById(genus[i]).style.color = "red";
+				}
+			   }
 
 			//EYES
 			if(eyes.options[eyes.selectedIndex].value == "yes"){
 				//console.log("Eyes YES");
 				for (i = 0; i < 4; i++){
 					if(ticklist[i].eyes == true){
-						scoreCard[genus[i]] += 1;
+						document.getElementById(genus[i]).style.color = "green";
 					}
 					if(ticklist[i].eyes == false) {
-						scoreCard[genus[i]] -= 1;
+						document.getElementById(genus[i]).style.color = "red";
 					}
-
 				}
 			}
 			else if (eyes.options[eyes.selectedIndex].value == "no"){ 
 				//console.log("Eyes NO");
 				for(i = 0; i < 4; i++){
-					if(ticklist[i].eyes == false){
-						scoreCard[genus[i]] += 1;
+					if(ticklist[i].eyes == true){
+					document.getElementById(genus[i]).style.color = "red";}
+					if(ticklist[i].eyes == false) {
+						document.getElementById(genus[i]).style.color = "green";
 					}
-					if(ticklist[i].eyes == true) {
-						scoreCard[genus[i]] -= 1;
-						}	
 				}
 			}
 			else if (eyes.options[eyes.selectedIndex].value == "unsure"){	
 			//console.log("Eyes UNSURE");
 			}
 			
+			//FESTOONS
+			
 			if(festoons.options[festoons.selectedIndex].value == "yes"){
 				//console.log("Festoons YES");
 				for (i = 0; i < 4; i++){
 					if(ticklist[i].festoons == true){
-						scoreCard[genus[i]] += 1;
+						document.getElementById(genus[i]).style.color = "green";
 					}
 					if(ticklist[i].festoons == false) {
-						scoreCard[genus[i]] -= 1;
+						document.getElementById(genus[i]).style.color = "red";
 					}
 				}
 			}
 			else if (festoons.options[festoons.selectedIndex].value == "no"){ 
 				//console.log("Festoons NO");
 				for(i = 0; i < 4; i++){
-					if(ticklist[i].festoons == false){
-						scoreCard[genus[i]] += 1;
+					if(ticklist[i].festoons == true){
+					document.getElementById(genus[i]).style.color = "red";}
+					if(ticklist[i].festoons == false) {
+						document.getElementById(genus[i]).style.color = "green";
 					}
-					if(ticklist[i].festoons == true) {
-						scoreCard[genus[i]] -= 1;
-						}
-					
 				}
 			}
 			else if (festoons.options[festoons.selectedIndex].value == "unsure"){	
-			//console.log("Festoons UNSURE");
+			//console.log("Eyes UNSURE");
 			}
-			
-			if(ornamentation.options[ornamentation.selectedIndex].value == "yes"){
-				//console.log("Ornamentation YES");
-				for (i = 0; i < 4; i++){
-					if(ticklist[i].ornamentation == true){
-						scoreCard[genus[i]] += 1;
-					}
-					if(ticklist[i].ornamentation == false) {
-						scoreCard[genus[i]] -= 1;
-					}
-				}
-			}
-			else if (ornamentation.options[ornamentation.selectedIndex].value == "no"){ 
-				//console.log("Ornamentation NO");
-				for(i = 0; i < 4; i++){
-					if(ticklist[i].ornamentation == false){
-						scoreCard[genus[i]] += 1;
-					}
-					if(ticklist[i].ornamentation == true) {
-						scoreCard[genus[i]] -= 1;
-						}
-					
-				}
-			}
-			else if (ornamentation.options[ornamentation.selectedIndex].value == "unsure"){	
-			//console.log("Ornamentation UNSURE");
-			}			
-
-		console.log(scoreCard);			
 		
 		}
 		
-		function colouring (){
-			for(i = 0; i < 4; i++){
-				if (Object.values(scoreCard)[i] < 1){document.getElementById(genus[i]).style.color = "red";}
-				if (Object.values(scoreCard)[i] == 1){document.getElementById(genus[i]).style.color = "#ff8300";}
-				if (Object.values(scoreCard)[i] == 2){document.getElementById(genus[i]).style.color = "#f8d210";}
-				if (Object.values(scoreCard)[i] > 2){document.getElementById(genus[i]).style.color = "green";}
-				//console.log(Object.values(scoreCard)[i]);
-				
-				//console.log(Object.values(scoreCard)[i]);
-				
-			}
-					
-				
-		}
-		
-
-		//console.log(scoreCard[genus[0]]);
-		console.log(scoreCard);
-		
-	
+		var scoreCard = [ {Amblyomma: 0
+							
+							]
 
         </script>
     </head>
@@ -296,24 +251,21 @@ Charcoal: #333a44
 			<p> Genus Features </p>
             
                 <label for="eyes">Eyes Present: </label>
-                <select name="eyes" id="eyes" onchange="genusSelect(); colouring();">
-					<option>-select-</option>
+                <select name="eyes" id="eyes" onclick="genusSelect(this.value);">
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
 
                 <label for="festoons">Festoons Present: </label>
-                <select name="festoons" id="festoons" onchange="genusSelect(); colouring();">
-					<option>-select-</option>
+                <select name="festoons" id="festoons">
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
 
                 <label for="ornamentation">Ornamentation Present: </label>
-                <select name="ornamentation" id="ornamentation" onchange="genusSelect(); colouring();">
-					<option>-select-</option>
+                <select name="ornamentation" id="ornamentation">
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -340,15 +292,13 @@ Charcoal: #333a44
 	
 	<h3> Species </h3>
 	
-	<p><i> Likelihood Scale <p>
+	<p style="color: green ;"> Green: Likely </p>
+	<!--
+	<p style="color: #f8d210;"> Yellow: Less Likely </p>
+	-->
+	<p style="color: #ff8300;"> Orange: Further discrimination required </p>
 	
-	<p style="color: green ;"> Green: Most Likely </p>
-	
-	<p style="color: #f8d210;"> Yellow Less Likely</p>
-	
-	<p style="color: #ff8300;"> Orange Not Likely  </p>
-	
-	<p style="color: red;"> Red: Least Likely<i/> </p>
+	<p style="color: red;"> Red: Unlikely </p>
 	
 	<!--<p> (temp) genus: </p>
 	<p><span id="genusDisplay"></span></p>-->
@@ -372,8 +322,6 @@ Charcoal: #333a44
 		<div class="Rhipicephalus" id="Rhipicephalus">
 			<p><i>Rhipicephalus sp.</i></p>	
 		</div>
-		
-		<button onclick="colouring();"> Tester </button>
 		
 
 	</div>
