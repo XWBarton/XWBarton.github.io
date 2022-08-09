@@ -137,8 +137,6 @@ Charcoal: #333a44
 		const eyes = document.getElementById("eyes")
 		const festoons = document.getElementById("festoons")
 		const ornamentation = document.getElementById("ornamentation")
-		
-		
 							 
 		const ticklist = Object.values(tickgenus)
 		
@@ -246,12 +244,36 @@ Charcoal: #333a44
 				
 		}
 		
-
-		//console.log(scoreCard[genus[0]]);
+		function disableDropDown (feature){
+			document.getElementById(feature).disabled = true;
+			
+			
+		}
+		
+		function resetDropDown (){
+		
+			const featuresid = ["eyes", "festoons", "ornamentation"]
+			
+			console.log(featuresid[0]);
+			
+			for(i = 0; i < 4; i++){
+			
+				scoreCard[genus[i]] = 0
+				document.getElementById(genus[i]).style.color = "black";
+				console.log(scoreCard);
+				}
+			for(a = 0; a < 3; a++){
+			
+				document.getElementById(featuresid[a]).disabled = false;
+				document.getElementById(featuresid[a]).value = "select";
+				}
+				
+			
+		
+		}
+	
 		console.log(scoreCard);
 		
-	
-
         </script>
     </head>
 
@@ -296,28 +318,30 @@ Charcoal: #333a44
 			<p> Genus Features </p>
             
                 <label for="eyes">Eyes Present: </label>
-                <select name="eyes" id="eyes" onchange="genusSelect(); colouring();">
-					<option>-select-</option>
+                <select name="eyes" id="eyes" onchange="genusSelect(); colouring(); disableDropDown('eyes');">
+					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
 
                 <label for="festoons">Festoons Present: </label>
-                <select name="festoons" id="festoons" onchange="genusSelect(); colouring();">
-					<option>-select-</option>
+                <select name="festoons" id="festoons" onchange="genusSelect(); colouring(); disableDropDown('festoons');">
+					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
 
                 <label for="ornamentation">Ornamentation Present: </label>
-                <select name="ornamentation" id="ornamentation" onchange="genusSelect(); colouring();">
-					<option>-select-</option>
+                <select name="ornamentation" id="ornamentation" onchange="genusSelect(); colouring(); disableDropDown('eyes');">
+					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
+				
+				<button onclick="resetDropDown();"> Reset </button>
 		</div>		
 			
 				<!--<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes'); genusPicker();">
