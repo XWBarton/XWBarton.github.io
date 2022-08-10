@@ -126,8 +126,6 @@ Charcoal: #333a44
         window.onload = function(){
 		
 			const featuresid = ["eyes", "festoons", "ornamentation"]
-			
-			alert("Work in progress. It's not pretty and there will be bugs. Hard ticks only at the moment");
 
             for(i = 0; i < 3; i++){
                 var dropDown = document.getElementById(featuresid[i]).selectedIndex = 0;  
@@ -273,10 +271,39 @@ Charcoal: #333a44
 			
 		
 		}
+		
+		function determineHardSoft (data) {
+		
+		var softButtons = data;
+		
+		console.log(softButtons);
+		
+			if (softButtons == "terminal"){document.getElementById('Argas').style.color = "red"; document.getElementById('Ornithodoros').style.color = "red"; resetDropDown(); document.getElementById("reset").disabled = false;
+					document.getElementById("six_legs").disabled = false;
+					document.getElementById("eight_legs").disabled = false;
+					document.getElementById("presentpore").disabled = false;
+					document.getElementById("absentpore").disabled = false;
+					document.getElementById("half_scutum").disabled = false;
+					document.getElementById("full_scutum").disabled = false;
+			}
+			else if (softButtons == "ventral"){document.getElementById('Argas').style.color = "green"; document.getElementById('Ornithodoros').style.color = "green";
+				for (i = 0; i < 4; i++){
+					document.getElementById(genus[i]).style.color = "red";
+					document.getElementById("eyes").disabled = true;
+					document.getElementById("festoons").disabled = true;
+					document.getElementById("ornamentation").disabled = true;
+					document.getElementById("reset").disabled = true;
+					document.getElementById("six_legs").disabled = true;
+					document.getElementById("eight_legs").disabled = true;
+					document.getElementById("presentpore").disabled = true;
+					document.getElementById("absentpore").disabled = true;
+					document.getElementById("half_scutum").disabled = true;
+					document.getElementById("full_scutum").disabled = true;
+				}
+			}
+		}
 	
 		console.log(scoreCard);
-		
-		
 		
         </script>
     </head>
@@ -289,7 +316,15 @@ Charcoal: #333a44
 
 		<p><span id="atributeDisplay"></span></p>
 		
-		<p><span id="atributeDisplay"></span></p>	
+		<p><span id="atributeDisplay"></span></p>
+
+		<div class="soft">
+			<p> Mouth Parts Position <p>
+				<input type="radio" id="terminal" name="mmpos" onClick='determineHardSoft("terminal");' value="terminal">
+					<label for="terminal"> Terminal</label><br>
+				<input type="radio" id="ventral" name="mmpos" onClick='determineHardSoft("ventral");' value="ventral">
+					<label for="ventral"> Ventral</label><br>
+		</div>
 		
 		<div class="legs">
 		<p> Number of Legs </p>
@@ -345,7 +380,7 @@ Charcoal: #333a44
                     <option value="no">No</option>
                 </select>
 				
-				<button onclick="resetDropDown();"> Reset </button>
+				<button id="reset" onclick="resetDropDown();"> Reset </button>
 		</div>		
 			
 				<!--<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes'); genusPicker();">
@@ -404,6 +439,15 @@ Charcoal: #333a44
 		<div class="Rhipicephalus" id="Rhipicephalus">
 			<p><i>Rhipicephalus sp.</i></p>	
 		</div>
+		
+		<div class="Argas" id="Argas">
+			<p><i> Argas sp. </i><p>
+		</div>
+
+		<div class="Ornithodoros" id="Ornithodoros">
+			<p><i> Ornithodoros sp. </i><p>
+		</div>		
+		
 		
 		<!--<button onclick="colouring();"> Tester </button>-->
 		
