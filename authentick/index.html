@@ -118,6 +118,16 @@ Charcoal: #333a44
                 //Print instar to HTML
                 document.getElementById("sexDisplay").innerHTML = onesex;	
     }
+	
+		function displayFamily (value) {
+				
+                if(value == "ventral"){var onefamily = "Argasidae (Soft Ticks)"}
+                
+                else if(value == "terminal"){var onefamily = "Ixodidae (Hard Ticks)"}
+
+                //Print family to HTML
+                document.getElementById("familyDisplay").innerHTML = onefamily;	
+    }
         
 		
 		function genusSelect (value) {
@@ -431,11 +441,15 @@ Charcoal: #333a44
 		<p><span id="atributeDisplay"></span></p>
 
 		<div class="soft">
-			<p> Mouth Parts Position <p>
-				<input type="radio" id="terminal" name="mmpos" onClick='determineHardSoft("terminal");' value="terminal">
-					<label for="terminal"> Terminal</label><br>
-				<input type="radio" id="ventral" name="mmpos" onClick='determineHardSoft("ventral");' value="ventral">
-					<label for="ventral"> Ventral</label><br>
+			
+			<p><b> Mouth Parts Position</b> </p>
+				<img class="featureImg" src="img/feature.png" alt="Feature Image">
+				<div class="selectors">
+					<input type="radio" id="ventral" name="mmpos" onClick='determineHardSoft("ventral"); displayFamily("ventral");' value="ventral">
+					<label for="ventral"> Ventral</label>
+					<input type="radio" id="terminal" name="mmpos" onClick='determineHardSoft("terminal"); displayFamily("terminal");' value="terminal">
+					<label for="terminal"> Terminal</label>
+				</div>
 		</div>
 		
 		<div class="instarSex">
@@ -574,6 +588,10 @@ Charcoal: #333a44
 	<h3 class="title"> Sex </h3>
 	
 	<p><span id="sexDisplay"></span></p>
+	
+	<h3 class="title"> Family </h3>
+	
+	<p><span id="familyDisplay"></span></p>
 	
 	<h3 class="title"> Species </h3>
 	
