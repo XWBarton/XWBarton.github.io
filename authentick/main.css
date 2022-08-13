@@ -1,0 +1,100 @@
+
+.title{
+	font-family: 'Merriweather', serif;
+}
+
+
+
+label {
+	
+	font-family: 'Merriweather', serif;
+}
+
+/* Tick Boxes(Ha!) */
+.tickElement {
+	
+	background-color: #D0C9C0;
+    width: 200px;
+    height: 225px;
+	border-radius: 5px;
+	
+}
+
+.tickImg {
+	
+	height: 150px; 
+	text-align: center;
+	padding-top: 12.5px; 
+	
+}
+
+.tickName {
+	
+	text-align: center;
+	padding-top: 10px;
+	font-family: 'IBM Plex Serif', serif;
+	
+}
+
+.tickName > p {
+	font-family: 'IBM Plex Serif', serif;
+	
+}
+
+.cards {
+    display: flex;
+    /* Put a card in the next row when previous cards take all width */
+    flex-wrap: wrap;
+
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+.cardsItem {
+	 /* There will be 4 cards per row */
+	flex-basis: 10%;
+	padding: 8px;
+}
+
+.scale {
+	display: flex;
+}
+
+.scale > p {
+	padding: 5px;
+	
+}
+
+p {
+	
+	font-family: 'Merriweather', serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,15 +11,21 @@ Charcoal: #333a44
 
 <html>
 	<head>
+
+<link rel="stylesheet" href="main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@1,500&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap" rel="stylesheet">
 	
 	<title>AuthenTICK</title>
 	
 		<script>
         
-            //Tick Attributes		
+        //Tick Attributes		
 
 		//if true it means atleast one species or population in genus has the feature, doesnt nesseally mean all 
-		// true = may or may not have feature
+		// true = may or may not have feature (some in population have features)
 		// false = does not have feature
 		
 		const tickgenus = [
@@ -28,19 +34,6 @@ Charcoal: #333a44
 		{genus: "Ixodes", eyes: false, festoons: false, ornamentation: false},
 		{genus: "Haemophysalis", eyes: false, festoons: true, ornamentation: false},
 		{genus: "Rhipicephalus", eyes: true, festoons: true, ornamentation: true},
-		
-		]
-		
-		const tickgenusScore = [
-		
-		//4 = Always true, 3 = mostly true 2 = mostly false, 1 = Always false
-		
-		//Colour patterning in hard ticks: https://doi.org/10.1093/jme/tjx173
-		
-		{genus: "Amblyomma", eyes: 4, festoons: 4, ornamentation: 4},
-		{genus: "Ixodes", eyes: 1, festoons: 1, ornamentation: 1},
-		{genus: "Haemophysalis", eyes: 1, festoons: 4, ornamentation: 1},
-		{genus: "Rhipicephalus", eyes: 4, festoons: 4, ornamentation: 2},
 		
 		]
 
@@ -64,10 +57,11 @@ Charcoal: #333a44
 		
 		]
 		
-		const genus = ["Amblyomma", 
-					   "Ixodes",
-					   "Haemophysalis",
-					   "Rhipicephalus", ]
+		//Data Attributes
+		
+		const genus = ["Amblyomma", "Ixodes", "Haemophysalis", "Rhipicephalus",]
+					   			   
+		const lengthTicksInGenus = {Amblyomma: 2, Ixodes: 1, Haemophysalis: 1, Rhipicephalus: 1, Argas: 0, Ornithodoros: 3}
 
         //Variable Client Built Tick
 
@@ -76,6 +70,8 @@ Charcoal: #333a44
 		var clientGenus = {eyes: false, festoons: false, ornamentation: false};
 		
 		const scoreCard = {Amblyomma: 0, Ixodes: 0, Haemophysalis: 0, Rhipicephalus: 0}
+		
+		const genusFeature = ["amblyommaFeatures", "ixodesFeatures", "haemophysalisFeatures", "rhipicephalusFeatures"]
 
         //Functions
 
@@ -123,14 +119,6 @@ Charcoal: #333a44
                 document.getElementById("sexDisplay").innerHTML = onesex;	
     }
         
-        window.onload = function(){
-		
-			const featuresid = ["eyes", "festoons", "ornamentation"]
-
-            for(i = 0; i < 3; i++){
-                var dropDown = document.getElementById(featuresid[i]).selectedIndex = 0;  
-            }
-        }
 		
 		function genusSelect (value) {
 		
@@ -230,65 +218,125 @@ Charcoal: #333a44
 		}
 		
 		function colouring (){
+		
 			for(i = 0; i < 4; i++){
-				if (Object.values(scoreCard)[i] < 1){document.getElementById(genus[i]).style.color = "red";}
-				if (Object.values(scoreCard)[i] == 1){document.getElementById(genus[i]).style.color = "#ff8300";}
-				if (Object.values(scoreCard)[i] == 2){document.getElementById(genus[i]).style.color = "#f8d210";}
-				if (Object.values(scoreCard)[i] > 2){document.getElementById(genus[i]).style.color = "green";}
-				//console.log(Object.values(scoreCard)[i]);
-				
-				//console.log(Object.values(scoreCard)[i]);
-				
-			}
-					
-				
+			
+				//Specifies number of tick species in each genus	
+				if(i == 0){tickNum = 3}
+				else if (i == 1){var tickNum = 3}
+				else if (i == 2){var tickNum = 2}
+				else if (i == 3){var tickNum = 2}
+			
+					//Red
+					if (Object.values(scoreCard)[i] < 1){
+						for(n = 0; n < tickNum ; n++){
+						console.log(".tickElement#"+genus[i]+[n]);
+						document.querySelector(".tickElement#"+genus[i]+[n]).style.backgroundColor = "#cc3232" 
+						}
+					}
+					//Orange
+					if (Object.values(scoreCard)[i] == 1){
+						for(n = 0; n < tickNum; n++){
+						document.querySelector(".tickElement#"+genus[i]+[n]).style.backgroundColor = "#db7b2b";
+						console.log("Orange: "+".tickElement#"+genus[i]+[n]);
+						}
+					}
+					//Yellow
+					if (Object.values(scoreCard)[i] == 2){
+						for(n = 0; n < tickNum; n++){
+						document.querySelector(".tickElement#"+genus[i]+[n]).style.backgroundColor = "#e7b416";
+						console.log("Yellow: "+".tickElement#"+genus[i]+[n]);
+						}
+					}
+					//Green
+					if (Object.values(scoreCard)[i] > 2){
+						for(n = 0; n < tickNum; n++){
+						document.querySelector(".tickElement#"+genus[i]+[n]).style.backgroundColor = "#99c140";
+						console.log("Green: "+".tickElement#"+genus[i]+[n]);
+						}
+					}
+			}			
 		}
 		
 		function disableDropDown (feature){
+			
 			document.getElementById(feature).disabled = true;
-			
-			
 		}
 		
 		function resetDropDown (){
 		
 			const featuresid = ["eyes", "festoons", "ornamentation",]
 			
-			console.log(featuresid[0]);
-			
 			for(i = 0; i < 4; i++){
 			
+				//Specifies number of tick species in each genus
+				if(i == 0){tickNum = 3}
+				else if (i == 1){var tickNum = 3}
+				else if (i == 2){var tickNum = 2}
+				else if (i == 3){var tickNum = 2}
+			
 				scoreCard[genus[i]] = 0
-				document.getElementById(genus[i]).style.color = "black";
+				
+					for (n = 0; n < tickNum ; n++){
+					document.getElementsByName(genus[i])[n].style.backgroundColor = "#D0C9C0";
+					}
+				
 				console.log(scoreCard);
+				document.getElementById(genusFeature[i]).style.display='none';
+				
 				}
+			
 			for(a = 0; a < 3; a++){
 			
 				document.getElementById(featuresid[a]).disabled = false;
 				document.getElementById(featuresid[a]).value = "select";
-				}
+				}	
 				
 			
-		
 		}
 		
 		function determineHardSoft (data) {
 		
-		var softButtons = data;
+		console.log(data);
 		
-		console.log(softButtons);
-		
-			if (softButtons == "terminal"){document.getElementById('Argas').style.color = "red"; document.getElementById('Ornithodoros').style.color = "red"; resetDropDown(); document.getElementById("reset").disabled = false;
-					document.getElementById("six_legs").disabled = false;
-					document.getElementById("eight_legs").disabled = false;
-					document.getElementById("presentpore").disabled = false;
-					document.getElementById("absentpore").disabled = false;
-					document.getElementById("half_scutum").disabled = false;
-					document.getElementById("full_scutum").disabled = false;
-			}
-			else if (softButtons == "ventral"){document.getElementById('Argas').style.color = "green"; document.getElementById('Ornithodoros').style.color = "green";
-				for (i = 0; i < 4; i++){
-					document.getElementById(genus[i]).style.color = "red";
+			if (data == "terminal"){
+			
+				//Argas
+				for(n = 0; n < 1; n++){
+					document.querySelector(".tickElement#Argas"+[n]).style.backgroundColor = "#cc3232"
+					resetDropDown(); 
+					}
+				
+				//Ornithodoros			
+				for(n = 0; n < 4; n++){
+					document.querySelector(".tickElement#Ornithodoros"+[n]).style.backgroundColor = "#cc3232"
+					//resetDropDown(); 
+					}
+					
+				document.getElementById("six_legs").disabled = false;
+				document.getElementById("eight_legs").disabled = false;
+				document.getElementById("presentpore").disabled = false;
+				document.getElementById("absentpore").disabled = false;
+				document.getElementById("half_scutum").disabled = false;
+				document.getElementById("full_scutum").disabled = false;
+				document.getElementById("reset").disabled = false;
+				
+				console.log("done");
+				
+				}
+			
+			else if (data == "ventral"){
+			
+				//Argas
+				for(n = 0; n < 1; n++){
+					document.querySelector(".tickElement#Argas"+[n]).style.backgroundColor = "#99c140"
+					}
+				
+				//Ornithodoros			
+				for(n = 0; n < 4; n++){
+					document.querySelector(".tickElement#Ornithodoros"+[n]).style.backgroundColor = "#99c140"
+					}
+
 					document.getElementById("eyes").disabled = true;
 					document.getElementById("festoons").disabled = true;
 					document.getElementById("ornamentation").disabled = true;
@@ -299,9 +347,73 @@ Charcoal: #333a44
 					document.getElementById("absentpore").disabled = true;
 					document.getElementById("half_scutum").disabled = true;
 					document.getElementById("full_scutum").disabled = true;
-				}
+					
+				for(i = 0; i < 4; i++){scoreCard[genus[i]] = 0}
+					
+				colouring();
+					
 			}
+		}	
+		
+
+		
+		function showGenus () {
+		
+		const genusFeature = ["amblyommaFeatures", "ixodesFeatures", "haemophysalisFeatures", "rhipicephalusFeatures"]
+			
+			for (i = 0; i < 4; i++){	
+				if (Object.values(scoreCard)[i] > 1){document.getElementById(genusFeature[i]).style.display='block';}
+				}
+				
+		
+			
 		}
+		
+	    window.onload = function(){
+		
+			const featuresid = ["eyes", "festoons", "ornamentation"]
+			
+			resetRadio();
+
+            for(i = 0; i < 3; i++){
+                var dropDown = document.getElementById(featuresid[i]).selectedIndex = 0;  
+            }
+        }
+		
+		function resetRadio (){
+		
+			const radioNames = ["mmpos", "legs", "genitalpore", "scutum"];
+			
+			console.log("running");
+			
+	
+			var ele = document.getElementsByName("mmpos");
+			
+			
+			document.getElementsByName("mmpos")[0].checked = false;
+			document.getElementsByName("mmpos")[1].checked = false;
+			
+			document.getElementsByName("legs")[0].checked = false;
+			document.getElementsByName("legs")[1].checked = false;
+			
+			document.getElementsByName("genitalpore")[0].checked = false;
+			document.getElementsByName("genitalpore")[1].checked = false;
+			
+			document.getElementsByName("scutum")[0].checked = false;
+			document.getElementsByName("scutum")[1].checked = false;
+
+		
+		}
+		
+	
+		
+		function tester (){
+			
+			const genusNum = lengthTicksInGenus[genus[0]];
+			console.log(genusNum);
+				
+			}
+		
 	
 		console.log(scoreCard);
 		
@@ -310,9 +422,9 @@ Charcoal: #333a44
 
     <body>
 	
-		<h1>AuthenTICK</h1>
+		<h1 class="title">AuthenTICK</h1>
 		
-		<h2> Features of your tick: </h2>
+		<h2 class="title"> Features of your tick: </h2>
 
 		<p><span id="atributeDisplay"></span></p>
 		
@@ -326,38 +438,46 @@ Charcoal: #333a44
 					<label for="ventral"> Ventral</label><br>
 		</div>
 		
-		<div class="legs">
-		<p> Number of Legs </p>
+		<div class="instarSex">
+		
+			<div class="legs">
+			<p> Number of Legs </p>
 
-				<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=6>
-					<label for="six_legs"> 6 Legs</label><br>
-				<input type="radio" id="eight_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=8>
-					<label for="eight_legs"> 8 Legs</label><br>
-		</div>
-			 
-		<div class="genticalpore">	
-			<p> Genital Pore </p>
-			
-				<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="present">
-					<label for="presentpore">Present</label><br>
-				<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="absent">
-					<label for="absentpore">Absent</label><br>
-					
-		</div>
-		<div class="sex">
-			<p> Sex (Adult ticks) </p>
+					<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=6>
+						<label for="six_legs"> 6 Legs</label><br>
+					<input type="radio" id="eight_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=8>
+						<label for="eight_legs"> 8 Legs</label><br>
+			</div>
+				 
+			<div class="genticalpore">	
+				<p> Genital Pore </p>
 				
-				<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="half_scutum">
-					<label for="halfscutum">Half Scutum</label><br>
-				<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="full_scutum">
-					<label for="halfscutum">Full Scutum (Conscutum)</label><br>
+					<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="present">
+						<label for="presentpore">Present</label><br>
+					<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="absent">
+						<label for="absentpore">Absent</label><br>
+						
+			</div>
+			<div class="sex">
+				<p> Sex (Adult ticks) </p>
+					
+					<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="half_scutum">
+						<label for="halfscutum">Half Scutum</label><br>
+					<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="full_scutum">
+						<label for="halfscutum">Full Scutum (Conscutum)</label><br>
+			</div>
+		
 		</div>
 		
-		<div class="genus">
+<!-- Narrowing down Genus -->
+		
+		
 			<p> Genus Features </p>
+			
+			<div class="genusGrid">
             
                 <label for="eyes">Eyes Present: </label>
-                <select name="eyes" id="eyes" onchange="genusSelect(); colouring(); disableDropDown('eyes');">
+                <select name="eyes" id="eyes" onchange="genusSelect(); disableDropDown('eyes'); colouring();  showGenus();">
 					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
@@ -365,7 +485,7 @@ Charcoal: #333a44
                 </select>
 
                 <label for="festoons">Festoons Present: </label>
-                <select name="festoons" id="festoons" onchange="genusSelect(); colouring(); disableDropDown('festoons');">
+                <select name="festoons" id="festoons" onchange="genusSelect(); disableDropDown('festoons'); colouring();  showGenus();">
 					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
@@ -373,7 +493,7 @@ Charcoal: #333a44
                 </select>
 
                 <label for="ornamentation">Ornamentation Present: </label>
-                <select name="ornamentation" id="ornamentation" onchange="genusSelect(); colouring(); disableDropDown('ornamentation');">
+                <select name="ornamentation" id="ornamentation" onchange="genusSelect(); disableDropDown('ornamentation'); colouring();  showGenus();">
 					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
@@ -381,77 +501,272 @@ Charcoal: #333a44
                 </select>
 				
 				<button id="reset" onclick="resetDropDown();"> Reset </button>
-		</div>		
-			
-				<!--<input type="checkbox" id="eyes" name="genus" onchange="genusSelect('eyes'); genusPicker();">
-					<label for="eyes">Eyes</label><br>
-				<input type="checkbox" id="festoons" name="genus" onchange="genusSelect('festoons'); genusPicker();">
-					<label for="festoons">Festoons</label><br>
-				<input type="checkbox" id="ornamentation" name="genus" onchange="genusSelect('ornamentation'); genusPicker();">
-					<label for="eyes">Ornamentation</label><br>-->
+				
 		</div>
-			  
-	<h2> Tick Pool </h2>
+				
+<!-- Narrowing down species -->				
+				
+		<div id="amblyommaFeatures"  style="display:none">
+			<p id="amblyommaTitle"><i> Amblyomma</i> Features </p>
+			
+                <label for="Feature">Feature: </label>
+                <select name="Feature" id="" onchange="">
+					<option value="select">-select-</option>
+                    <option value="unsure">Unsure</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>			
+		
+		</div>
+		
+		<div id="ixodesFeatures"  style="display:none">
+			<p id="ixodesTitle"><i> Ixodes</i> Features </p>
+
+                <label for="Feature">Feature: </label>
+                <select name="Feature" id="" onchange="">
+					<option value="select">-select-</option>
+                    <option value="unsure">Unsure</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>			
+		
+		</div>
+		
+		<div id="haemophysalisFeatures"  style="display:none">
+			<p id="haemophysalisTitle"><i> Haemophysalis</i> Features </p>
+
+                <label for="Feature">Feature: </label>
+                <select name="Feature" id="" onchange="">
+					<option value="select">-select-</option>
+                    <option value="unsure">Unsure</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>			
+		
+		</div>
+		
+		<div id="rhipicephalusFeatures" style="display:none">
+			<p id="rhipicephalusTitle"><i> Rhipicephalus</i> Features </p>
+
+                <label for="Feature">Feature: </label>
+                <select name="Feature" id="" onchange="">
+					<option value="select">-select-</option>
+                    <option value="unsure">Unsure</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>			
+		
+		</div>
+		
+		<div id="argasFeatures" style="display:none">
+			<p id="argasTitle" ><i> Argas</i> Features </p>
+		
+		</div>
+		
+		<div id="ornithodorosFeatures" style="display:none">
+			<p id="ornithodorosTitle"><i> Ornithodoros </i>Features<p>
+		</div>	
 	
-	<h3> Instar </h3>
+	<h3 class="title"> Instar </h3>
 	
 	<p><span id="instarDisplay"></span></p>
 	
-	<h3> Sex </h3>
+	<h3 class="title"> Sex </h3>
 	
 	<p><span id="sexDisplay"></span></p>
 	
-	<h3> Species </h3>
+	<h3 class="title"> Species </h3>
 	
-	<div class=scale style="background-color:#eeede7;">
+	<div class="scale" >
 	
-	<p><i> Confidence Scale <p>
+	<p> Confidence Scale:<p>
 	
-	<p style="color: green ;"> Green: Very High Confidence </p>
+	<p style="color: #99c140 ;">Very High Confidence</p>
 	
-	<p style="color: #f8d210;">Yellow: High Confience</p>
+	<p style="color: #e7b416;">High Confience</p>
 	
-	<p style="color: #ff8300;">Orange: Moderate Confidence  </p>
+	<p style="color: #db7b2b;">Moderate Confidence</p>
 	
-	<p style="color: red;"> Red: Low Confidence<i/> </p>
+	<p style="color: #cc3232;">Low Confidence</p>
 	
 	</div>
 	
-	<!--<p> (temp) genus: </p>
-	<p><span id="genusDisplay"></span></p>-->
+	<div class="cards">
 	
-	<div class="pool">
-		<div class="Amblyomma" id="Amblyomma">
-			<p><i>Amblyomma sp.</p></i></p><!--
-			<p><i>Amblyomma trigutattum</i></p>
-			<p><i>Amblyomma australienses</i></p>	
-			<p><i>Amblyomma albolimbatum</i></p>	-->
+	<div class="cardsItem">
+		<div class="tickElement"  name="Amblyomma" id="Amblyomma0">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/atrigutattum.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Amblyomma trigutattum</i></p>
+			</div>
 		</div>
-		
-		<div class="Ixodes" id="Ixodes">
-			<p><i>Ixodes sp.</i></p>	
+	</div>
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Amblyomma" id="Amblyomma1">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Amblyomma australiensis</i></p>
+			</div>
 		</div>
-		
-		<div class="Haemophysalis" id="Haemophysalis">
-			<p><i>Haemophysalis sp.</i></p>	
+	</div>
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Amblyomma" id="Amblyomma2">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Amblyomma albolimbatum</i></p>
+			</div>
 		</div>
-		
-		<div class="Rhipicephalus" id="Rhipicephalus">
-			<p><i>Rhipicephalus sp.</i></p>	
-		</div>
-		
-		<div class="Argas" id="Argas">
-			<p><i> Argas sp. </i><p>
-		</div>
+	</div>	
 
-		<div class="Ornithodoros" id="Ornithodoros">
-			<p><i> Ornithodoros sp. </i><p>
-		</div>		
-		
-		
-		<!--<button onclick="colouring();"> Tester </button>-->
-		
+	<div class="cardsItem">
+		<div class="tickElement" name="Ixodes" id="Ixodes0">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Ixodes australiensis</i></p>
+			</div>
+		</div>
+	</div>
 
+	<div class="cardsItem">
+		<div class="tickElement" name="Ixodes" id="Ixodes1">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Ixodes hirsti</i></p>
+			</div>
+		</div>
+	</div>	
+
+	<div class="cardsItem">
+		<div class="tickElement" name="Ixodes" id="Ixodes2">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Ixodes fecialis</i></p>
+			</div>
+		</div>
+	</div>
+
+	<div class="cardsItem">
+		<div class="tickElement" name="Haemophysalis" id="Haemophysalis0">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Haemophysalis longicornis</i></p>
+			</div>
+		</div>
+	</div>	
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Haemophysalis" id="Haemophysalis1">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Haemophysalis bancrofti</i></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Rhipicephalus" id="Rhipicephalus0">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Rhipicephalus australis</i></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Rhipicephalus" id="Rhipicephalus1">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Rhipicephalus sanguineus</i></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Argas" id="Argas0">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Argas australiensis</i></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Ornithodoros" id="Ornithodoros0">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Ornithodoros capensis</i></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Ornithodoros" id="Ornithodoros1">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Ornithodoros gurneyi</i></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Ornithodoros" id="Ornithodoros2">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Ornithodoros macmillani</i></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cardsItem">
+		<div class="tickElement" name="Ornithodoros" id="Ornithodoros3">
+			<div class="tickImg">
+				<img class="tickImg" src="img/tick-img/generic-tick.png" alt="Generic Tick Image">
+			</div>
+			<div class="tickName">
+				<p><i>Ornithodoros magnini</i></p>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	</div>
+	
+		</div>
+		
+		<!--<button onclick="tester();;"> Tester </button>-->
+	
 	</div>
 	
 	</body>
