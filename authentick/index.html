@@ -439,10 +439,14 @@ Charcoal: #333a44
 		<p><span id="atributeDisplay"></span></p>
 		
 		<p><span id="atributeDisplay"></span></p>
-
-		<div class="soft">
-			
-			<p><b> Mouth Parts Position</b> </p>
+		
+		<!-- Features img in 3:2 ratio -->
+		
+		<div class="cards">
+		
+		<div class="cardsItem">
+		<div class="featureCard">
+			<p><b> Mouth Parts Position</b></p>
 				<img class="featureImg" src="img/feature.png" alt="Feature Image">
 				<div class="selectors">
 					<input type="radio" id="ventral" name="mmpos" onClick='determineHardSoft("ventral"); displayFamily("ventral");' value="ventral">
@@ -451,42 +455,53 @@ Charcoal: #333a44
 					<label for="terminal"> Terminal</label>
 				</div>
 		</div>
-		
-		<div class="instarSex">
-		
-			<div class="legs">
-			<p> Number of Legs </p>
-
-					<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=6>
-						<label for="six_legs"> 6 Legs</label><br>
-					<input type="radio" id="eight_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=8>
-						<label for="eight_legs"> 8 Legs</label><br>
-			</div>
-				 
-			<div class="genticalpore">	
-				<p> Genital Pore </p>
-				
-					<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="present">
-						<label for="presentpore">Present</label><br>
-					<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="absent">
-						<label for="absentpore">Absent</label><br>
-						
-			</div>
-			<div class="sex">
-				<p> Sex (Adult ticks) </p>
-					
-					<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="half_scutum">
-						<label for="halfscutum">Half Scutum</label><br>
-					<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="full_scutum">
-						<label for="halfscutum">Full Scutum (Conscutum)</label><br>
-			</div>
-		
 		</div>
+		
+		<div class="cardsItem">
+		<div class="featureCard">
+		<p><b>Number of Legs</b></p>
+			<img class="featureImg" src="img/feature.png" alt="Feature Image">
+			<div class="legs">
+				<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=6>
+				<label for="six_legs"> 6 Legs</label>
+				<input type="radio" id="eight_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=8>
+				<label for="eight_legs"> 8 Legs</label>
+			</div>
+		</div>
+		</div>
+				 
+			<div class="cardsItem">	
+			<div class="featureCard">
+				<p><b> Genital Pore</b> </p>
+				<img class="featureImg" src="img/feature.png" alt="Feature Image">
+				<div>
+					<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="present">
+						<label for="presentpore">Present</label>
+					<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="absent">
+						<label for="absentpore">Absent</label>
+				</div>
+			</div>				
+			</div>
+			
+			<div class="cardsItem">
+			<div class="featureCard">
+				<p><b> Scutum (Only Adults)</b> </p>
+				<img class="featureImg" src="img/feature.png" alt="Feature Image">
+					<div>
+					<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="half_scutum">
+						<label for="halfscutum">Half</label>
+					<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="full_scutum">
+						<label for="halfscutum">Full (Conscutum)</label>
+				</div>
+			</div>
+		</div>
+		</div>
+
 		
 <!-- Narrowing down Genus -->
 		
 		
-			<p> Genus Features </p>
+			<p><b> Genus Features</b> </p>
 			
 			<div class="genusGrid">
             
@@ -608,6 +623,8 @@ Charcoal: #333a44
 	<p style="color: #cc3232;">Low Confidence</p>
 	
 	</div>
+	
+	<!-- Tick img in 1:1 ratio -->
 	
 	<div class="cards">
 	

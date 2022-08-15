@@ -1,9 +1,6 @@
-
 .title{
 	font-family: 'Merriweather', serif;
 }
-
-
 
 label {
 	
@@ -76,11 +73,26 @@ p {
 
 }
 
-.soft {
+.featureCard {
 	text-align: center;
 	width: 300px;
+	background-color: #7c9cab;
+	border-radius: 5px;
 
 }
+
+.featureCard > p {
+	padding-top: 10px;
+}
+
+ /*input[type='radio'] { 
+     transform: scale(2); 
+ }*/
+ 
+ 
+
+
+
 
 
 
