@@ -70,6 +70,7 @@ p {
 .featureImg {
 	
 	height: 150px;
+	border-radius: 5px;
 
 }
 
@@ -85,11 +86,43 @@ p {
 	padding-top: 10px;
 }
 
+.legs, .genital, .scutum, .mouth {
+	padding: 10px;
+}
+
+
  /*input[type='radio'] { 
      transform: scale(2); 
  }*/
  
+ .genusCard {
+	 
+	text-align: center;
+	width: 300px;
+	background-color: #7c9cab;
+	border-radius: 5px;
+	 
+ }
  
+  .genusCard > p {
+	 
+		padding-top: 10px;
+	 
+ }
+ 
+ .genusCard > select {
+	margin: 10px;
+}
+
+.taxonCard {
+	
+	margin: 20px;
+	width: 200px;
+	background-color: ;
+	border-radius: 5px;
+	 
+	
+}
 
 
 

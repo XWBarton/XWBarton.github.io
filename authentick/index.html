@@ -432,9 +432,9 @@ Charcoal: #333a44
 
     <body>
 	
-		<h1 class="title">AuthenTICK</h1>
+		<h1 class="title" style="margin: 10px;">AuthenTICK</h1>
 		
-		<h2 class="title"> Features of your tick: </h2>
+		<h2 class="title" style="margin: 10px;"> Features of Your Tick </h2>
 
 		<p><span id="atributeDisplay"></span></p>
 		
@@ -447,8 +447,8 @@ Charcoal: #333a44
 		<div class="cardsItem">
 		<div class="featureCard">
 			<p><b> Mouth Parts Position</b></p>
-				<img class="featureImg" src="img/feature.png" alt="Feature Image">
-				<div class="selectors">
+				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
+				<div class="mouth">
 					<input type="radio" id="ventral" name="mmpos" onClick='determineHardSoft("ventral"); displayFamily("ventral");' value="ventral">
 					<label for="ventral"> Ventral</label>
 					<input type="radio" id="terminal" name="mmpos" onClick='determineHardSoft("terminal"); displayFamily("terminal");' value="terminal">
@@ -460,7 +460,7 @@ Charcoal: #333a44
 		<div class="cardsItem">
 		<div class="featureCard">
 		<p><b>Number of Legs</b></p>
-			<img class="featureImg" src="img/feature.png" alt="Feature Image">
+			<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
 			<div class="legs">
 				<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=6>
 				<label for="six_legs"> 6 Legs</label>
@@ -473,8 +473,8 @@ Charcoal: #333a44
 			<div class="cardsItem">	
 			<div class="featureCard">
 				<p><b> Genital Pore</b> </p>
-				<img class="featureImg" src="img/feature.png" alt="Feature Image">
-				<div>
+				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
+				<div class="genital"> 
 					<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="present">
 						<label for="presentpore">Present</label>
 					<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="absent">
@@ -486,12 +486,14 @@ Charcoal: #333a44
 			<div class="cardsItem">
 			<div class="featureCard">
 				<p><b> Scutum (Only Adults)</b> </p>
-				<img class="featureImg" src="img/feature.png" alt="Feature Image">
+				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
 					<div>
+					<div class="scutum">
 					<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="half_scutum">
 						<label for="halfscutum">Half</label>
 					<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="full_scutum">
 						<label for="halfscutum">Full (Conscutum)</label>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -499,39 +501,58 @@ Charcoal: #333a44
 
 		
 <!-- Narrowing down Genus -->
-		
-		
-			<p><b> Genus Features</b> </p>
+
 			
-			<div class="genusGrid">
-            
-                <label for="eyes">Eyes Present: </label>
+
+			<p><b> Genus Features</b> </p>
+			<div class="cards">
+			
+			<!--<div class="genusGrid">-->
+			
+			<div class="cardsItem">
+				<div class="genusCard">
+                <p >Eyes Present</p>
+				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
                 <select name="eyes" id="eyes" onchange="genusSelect(); disableDropDown('eyes'); colouring();  showGenus();">
 					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
-
-                <label for="festoons">Festoons Present: </label>
+				
+			</div>
+			</div>
+			
+			<div class="cardsItem">
+				<div class="genusCard">
+                <p>Festoons Present</p>
+				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
                 <select name="festoons" id="festoons" onchange="genusSelect(); disableDropDown('festoons'); colouring();  showGenus();">
 					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
-
-                <label for="ornamentation">Ornamentation Present: </label>
+			</div>
+			</div>
+			
+			<div class="cardsItem">
+				<div class="genusCard">
+                <p>Ornamentation Present</p>
+				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
                 <select name="ornamentation" id="ornamentation" onchange="genusSelect(); disableDropDown('ornamentation'); colouring();  showGenus();">
 					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
+			</div>
+			</div>	
 				
-				<button id="reset" onclick="resetDropDown();"> Reset </button>
-				
-		</div>
+			</div>
+			
+			<button id="reset" onclick="resetDropDown();"> Reset </button>
+		
 				
 <!-- Narrowing down species -->				
 				
@@ -594,23 +615,38 @@ Charcoal: #333a44
 		
 		<div id="ornithodorosFeatures" style="display:none">
 			<p id="ornithodorosTitle"><i> Ornithodoros </i>Features<p>
-		</div>	
+		</div>
+
+	<!-- Taxon, Instar and Sex ID -->
 	
-	<h3 class="title"> Instar </h3>
+	<div class="cards">
 	
-	<p><span id="instarDisplay"></span></p>
+	<div class="taxonCard">
+		<h3 class="title"> Family </h3>
 	
-	<h3 class="title"> Sex </h3>
+		<p><span id="familyDisplay"></span></p>	
+	</div>	
 	
-	<p><span id="sexDisplay"></span></p>
+	<div class="taxonCard">
+		<h3 class="title"> Instar </h3>
 	
-	<h3 class="title"> Family </h3>
+		<p><span id="instarDisplay"></span></p>
+	</div>	
 	
-	<p><span id="familyDisplay"></span></p>
+	<div class="taxonCard">
+		<h3 class="title"> Sex </h3>
 	
-	<h3 class="title"> Species </h3>
+		<p><span id="sexDisplay"></span></p>
+	</div>
+	
+
+	</div>
+	
+	<h3 class="title" style="margin: 10px;"> Species </h3>
 	
 	<div class="scale" >
+	
+	<!-- Colour Scale -->
 	
 	<p> Confidence Scale:<p>
 	
