@@ -131,6 +131,17 @@ p {
 	
 }
 
+.float{
+	display: none;
+}
+
+.my-float{
+	display: none;}
+
+.icon{
+display: none;
+}
+
 }
 
 /* For mobile */
