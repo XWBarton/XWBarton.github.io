@@ -1,5 +1,10 @@
+/* For Desktop */
+
+@media only screen and (min-width: 635px) {
+
 .title{
 	font-family: 'Merriweather', serif;
+
 }
 
 label {
@@ -22,8 +27,10 @@ label {
 	height: 150px; 
 	text-align: center;
 	padding-top: 12.5px; 
+
 	
 }
+
 
 .tickName {
 	
@@ -124,34 +131,89 @@ p {
 	
 }
 
+}
+
+/* For mobile */
+@media only screen and (max-width: 635px) {
+	
+html, body {
+     min-height: 100%;
+}
+
+.title, label, p{
+	font-family: 'Merriweather', serif;
+		margin-left: 10px;
+}
+
+img {
+	width: 90%;
+}
+
+.cardsItem {
+		
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin-top: 8px;
+	
+}
+
+.featureCard, .genusCard {
+	
+	text-align: center;
+	width: 100%;
+	background-color: #7c9cab;
+	border-radius: 5px;
+
+}
+
+ .genusCard > select {
+	margin: 10px;
+}
+
+.legs, .genital, .scutum, .mouth {
+	padding: 10px;
+}
+
+.tickElement {
+	
+	background-color: #D0C9C0;
+	width: 80%;
+	border-radius: 5px;
+	text-align: center;
+	
+}
+
+.tickImg {
+	
+	padding-top: 12.5px; 
+	
+}
 
 
+.tickName {
+	
+	text-align: center;
+	font-family: 'IBM Plex Serif', serif;
+	
+}
 
+.tickName > p {
+	font-family: 'IBM Plex Serif', serif;
+	
+}
 
+ input[type='radio'] { 
+     transform: scale(1.5); 
+ }
 
+button {
+	
+	display:block; 
+	margin: 0 auto;
+	width: 80%;
+	margin-top: 10px;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
