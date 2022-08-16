@@ -216,4 +216,37 @@ button {
 
 }
 
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:10px;
+	right:10px;
+	background-color:#47714D;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+
+.icon{
+	position:fixed;
+	width:40px;
+	height:50px;
+	bottom:14px;
+	right:20px;
+	text-align:center;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+
+
 
