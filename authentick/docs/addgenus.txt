@@ -1,0 +1,6 @@
+Add Genus 
+
+- Add genus object to "tickgenus" object list
+- Add genus to score card
+- Add genus to genusFeature
+- Add 1 to the loops that loop through the genera

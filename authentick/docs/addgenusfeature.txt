@@ -1,0 +1,8 @@
+Steps Required to Add Genus Feature
+
+- Add feature to tickgenus object array
+- Add genuCard to genus feature section
+- Create uniform ID for the features and add to apropriate places in function
+- Add ID to featuresid lists within certain functions
+- Potentially update score ranges 
+- Add if else statments for feature in genusSelect function
