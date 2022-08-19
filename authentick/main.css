@@ -54,7 +54,7 @@ label {
     margin-right: -8px;
 }
 
-.cardsItem {
+.cardsItem, .cardsItemBoth, .cardsItemFemale, .cardsItemMale {
 	 /* There will be 4 cards per row */
 	flex-basis: 10%;
 	padding: 8px;
@@ -97,7 +97,7 @@ p {
 	padding: 10px;
 }
  
- .genusCard {
+ .genusCard, .amblyommaFeatures {
 	 
 	text-align: center;
 	width: 300px;
@@ -106,13 +106,13 @@ p {
 	 
  }
  
-  .genusCard > p {
+  .genusCard > p, .amblyommaFeatures > p {
 	 
 		padding-top: 10px;
 	 
  }
  
- .genusCard > select {
+ .genusCard > select, .amblyommaFeatures > select {
 	margin: 10px;
 }
 
