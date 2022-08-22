@@ -151,6 +151,10 @@ display: none;
 
 }
 
+.selectInstarSex {
+	font-family: 'Merriweather', serif;
+}
+
 
 
 
@@ -182,7 +186,7 @@ img {
 	
 }
 
-.featureCard, .genusCard {
+.featureCard, .genusCard, .amblyommaFeatures {
 	
 	text-align: center;
 	width: 100%;
@@ -224,6 +228,10 @@ img {
 	text-align: center;
 	font-family: 'IBM Plex Serif', serif;
 	
+}
+
+.selectInstarSex {
+	font-family: 'Merriweather', serif;
 }
 
 .tickName > p {
@@ -273,6 +281,16 @@ button {
 html {
   scroll-behavior: smooth;
 }
+
+.amblyommaFeatures > p {
+  padding-top: 10px;
+}
+
+.amblyommaFeatures > select {
+  margin: 10px;
+}
+
+
 
 
 

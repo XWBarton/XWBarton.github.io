@@ -85,6 +85,8 @@ Charcoal: #333a44
 		const genusFeature = ["amblyommaFeatures", "ixodesFeatures", "haemophysalisFeatures", "rhipicephalusFeatures", "bothriocrotonFeatures"]
 		
 		const genusList = ["amblyomma", "ixodes", "haemophysalis", "rhipicephalus"]
+		
+		var onesex = "Unselected"
 
         //Functions
 
@@ -485,26 +487,39 @@ Charcoal: #333a44
 			
 		function amblyommaDisplay () {
 		
-			console.log("running");
+		console.log(onesex);
 			
 			if(scoreCard.Amblyomma > 1){
 
-				if(onesex == 'Female'){
+				if(onesex == "Unselected"){
+					document.getElementById("selectInstarSex").innerHTML = "Please select Instar and Sex";
+				}
+				else if (oneinstar == 'Nymph'){
+					document.getElementById("selectInstarSex").innerHTML = "At this time taxonomic keys for Amblyomma nymphs have not been written. What to do now? Click here.";
+				}
+				else if (oneinstar == 'Larva'){
+					document.getElementById("selectInstarSex").innerHTML = "At this time taxonomic keys for Amblyomma larva have not been written. What to do now? Click here.";
+				}
+				else if(onesex == 'Female'){
 					document.querySelector('.cardsItemFemale').style.display = 'block';
-					}
+					document.querySelector('.cardsItemBoth').style.display = 'block';
+					document.querySelector('.cardsItemMale').style.display = 'none';
+					document.getElementById("selectInstarSex").style.display = 'none';
+				}
 				else if(onesex == 'Male'){
-					document.querySelector('.cardsItemMale').style.display = 'block';;
+					document.querySelector('.cardsItemMale').style.display = 'block';
+					document.querySelector('.cardsItemBoth').style.display = 'block';
+					document.querySelector('.cardsItemFemale').style.display = 'none';
+					document.getElementById("selectInstarSex").style.display = 'none';
 				}
 			}
-			//else if(oneinstar == 'Nymph') {display "At this time taxonomic keys for Amblyomma nymphs have not been written. //What //to do now? Click here."}
-			//else if(oneinstar == 'Larva') {display "At this time taxonomic keys for Amblyomma larva have not been written. What to 
-			//do now? Click here."}
 		}
 		
 		function rhipicephalusDisplay () {}
 		
 	
 		console.log(scoreCard);
+
 		
         </script>
 			
@@ -519,7 +534,7 @@ Charcoal: #333a44
 		
 		<h2 class="title" style="margin: 10px;"> Features of Your Tick </h2>
 
-
+		<p><b>Family, Instar & Sex </b> </p>
 		
 		<!-- Features img in 3:2 ratio -->
 		
@@ -530,9 +545,9 @@ Charcoal: #333a44
 			<p><b> Mouth Parts Position</b></p>
 				<img class="featureImg" src="img/ventral-terminal.png" alt="Feature Image">
 				<div class="mouth">
-					<input type="radio" id="ventral" name="mmpos" onClick='determineHardSoft("ventral"); displayFamily("ventral");' value="ventral">
+					<input type="radio" id="ventral" name="mmpos" onClick='determineHardSoft("ventral"); displayFamily("ventral"); amblyommaDisplay();' value="ventral">
 					<label for="ventral"> Ventral</label>
-					<input type="radio" id="terminal" name="mmpos" onClick='determineHardSoft("terminal"); displayFamily("terminal");' value="terminal">
+					<input type="radio" id="terminal" name="mmpos" onClick='determineHardSoft("terminal"); displayFamily("terminal"); amblyommaDisplay();' value="terminal">
 					<label for="terminal"> Terminal</label>
 				</div>
 		</div>
@@ -543,9 +558,9 @@ Charcoal: #333a44
 		<p><b>Number of Legs</b></p>
 			<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
 			<div class="legs">
-				<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=6>
+				<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex(); amblyommaDisplay();' value=6>
 				<label for="six_legs"> 6 Legs</label>
-				<input type="radio" id="eight_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=8>
+				<input type="radio" id="eight_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex(); amblyommaDisplay();' value=8>
 				<label for="eight_legs"> 8 Legs</label>
 			</div>
 		</div>
@@ -556,9 +571,9 @@ Charcoal: #333a44
 				<p><b> Genital Pore</b> </p>
 				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
 				<div class="genital"> 
-					<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="present">
+					<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex(); amblyommaDisplay();' value="present">
 						<label for="presentpore">Present</label>
-					<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="absent">
+					<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex(); amblyommaDisplay();' value="absent">
 						<label for="absentpore">Absent</label>
 				</div>
 			</div>				
@@ -570,9 +585,9 @@ Charcoal: #333a44
 				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
 					<div>
 					<div class="scutum">
-					<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="half_scutum">
+					<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); displaySex(); amblyommaDisplay();' value="half_scutum">
 						<label for="halfscutum">Half</label>
-					<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex()' value="full_scutum">
+					<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex(); amblyommaDisplay();' value="full_scutum">
 						<label for="halfscutum">Full (Conscutum)</label>
 						</div>
 				</div>
@@ -586,7 +601,7 @@ Charcoal: #333a44
 
 			
 
-			<p><b> Genus Features</b> </p>
+			<p><b> Genus </b> </p>
 			<div class="cards">
 			
 			<!--<div class="genusGrid">-->
@@ -653,7 +668,9 @@ Charcoal: #333a44
 
 	<div id="amblyommaFeatures" style="display: none;">
 		
-		<p id="amblyommaTitle"><b><i> Amblyomma</i> Features</b> </p>			
+		<p id="amblyommaTitle"><b><i> Amblyomma</i> Features</b> </p>	
+
+		<div class="selectInstarSex" id="selectInstarSex"></div>	
 				
 		<div class="cards">
 	
@@ -719,7 +736,7 @@ Charcoal: #333a44
 	
 		
 		<div id="ixodesFeatures"  style="display:none">
-			<p id="ixodesTitle"><i> Ixodes</i> Features </p>
+			<p id="ixodesTitle"><i><b> Ixodes</i> Features</b> </p>
 
                 <label for="Feature">Feature: </label>
                 <select name="Feature" id="" onchange="">
@@ -732,7 +749,7 @@ Charcoal: #333a44
 		</div>
 		
 		<div id="haemophysalisFeatures"  style="display:none">
-			<p id="haemophysalisTitle"><i> Haemophysalis</i> Features </p>
+			<p id="haemophysalisTitle"><i><b> Haemophysalis</i> Features</b> </p>
 
                 <label for="Feature">Feature: </label>
                 <select name="Feature" id="" onchange="">
@@ -745,7 +762,7 @@ Charcoal: #333a44
 		</div>
 		
 		<div id="rhipicephalusFeatures" style="display:none">
-			<p id="rhipicephalusTitle"><i> Rhipicephalus</i> Features </p>
+			<p id="rhipicephalusTitle"><i><b> Rhipicephalus</i> Features</b> </p>
 
                 <label for="Feature">Feature: </label>
                 <select name="Feature" id="" onchange="">
@@ -758,7 +775,7 @@ Charcoal: #333a44
 		</div>
 		
 		<div id="bothriocrotonFeatures" style="display:none">
-			<p id="bothriocrotonTitle"><i> Bothriocroton</i> Features </p>
+			<p id="bothriocrotonTitle"><i><b> Bothriocroton</i> Features</b> </p>
 
                 <label for="Feature">Feature: </label>
                 <select name="Feature" id="" onchange="">
@@ -771,12 +788,12 @@ Charcoal: #333a44
 		</div>
 		
 		<div id="argasFeatures" style="display:none">
-			<p id="argasTitle" ><i> Argas</i> Features </p>
+			<p id="argasTitle" ><i><b> Argas</i> Features</b> </p>
 		
 		</div>
 		
 		<div id="ornithodorosFeatures" style="display:none">
-			<p id="ornithodorosTitle"><i> Ornithodoros </i>Features<p>
+			<p id="ornithodorosTitle"><i><b> Ornithodoros </i>Features</b><p>
 		</div>
 
 	<!-- Taxon, Instar and Sex ID -->
