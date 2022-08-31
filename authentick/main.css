@@ -54,7 +54,7 @@ label {
     margin-right: -8px;
 }
 
-.cardsItem, .cardsItemBoth, .cardsItemFemale, .cardsItemMale {
+.cardsItem {
 	 /* There will be 4 cards per row */
 	flex-basis: 10%;
 	padding: 8px;
@@ -151,9 +151,6 @@ display: none;
 
 }
 
-.selectInstarSex {
-	font-family: 'Merriweather', serif;
-}
 
 
 
@@ -238,6 +235,7 @@ img {
 	font-family: 'IBM Plex Serif', serif;
 	
 }
+
 
  input[type='radio'] { 
      transform: scale(1.5); 
