@@ -110,7 +110,9 @@ Charcoal: #333a44
 		
 		var onesex = "Unselected"
 
-		var amblyommaScore = {};
+		var amblyommaScore = {trigutattum: 0, australiense: 0, albolimbatum: 0,};
+
+		var speciesScore = {};
 
         //Functions
 
@@ -511,18 +513,44 @@ Charcoal: #333a44
 		
 		function rhipicephalusDisplay () {}
 
-		function amblyommaScorer () {
+		function initialiseSpeciesObject () {
 
-			var amblyommaNum = robertsAmblyomma.length;
-			console.log(amblyommaNum);
+			var filteredSex = robertsAmblyomma.filter(function(item){
+    		return item.instarSex == onesex;         
+			});
 
+			console.log(filteredSex[0]);
+
+			var tickNum = filteredSex.length
+
+			for (i = 0; i < tickNum; i++){speciesScore[filteredSex[i].species] = 0}
 			
-
-			countUniqueSpecies(robertsAmblyomma);
-			console.log(countUniqueSpecies);
 		}
-		
-	
+
+		function filterSpecies (passedAttribute) {
+
+			var filteredSex = robertsAmblyomma.filter(function(item){
+    		return item.instarSex == onesex;         
+			});
+
+			const lookup = {dentition, genitalApatureLevel};
+
+			var attribute = passedAttribute;
+			var value = lookup[attribute].options[lookup[attribute].selectedIndex].value
+			var tickNum = filteredSex.length
+
+			for(i = 0; i < tickNum; i++){
+
+				//Add +1 to speciesScore under if value matches 
+				if (filteredSex[i][attribute] == value){speciesScore[filteredSex[i].species]++}
+					else {speciesScore[filteredSex[i].species]--}
+			}
+
+			console.log(speciesScore);
+		}
+
+		function greyOutTick () {}
+
 		console.log(scoreCard);
 
 		
@@ -550,9 +578,9 @@ Charcoal: #333a44
 			<p><b> Mouth Parts Position</b></p>
 				<img class="featureImg" src="img/ventral-terminal.png" alt="Feature Image">
 				<div class="mouth">
-					<input type="radio" id="ventral" name="mmpos" onClick='determineHardSoft("ventral"); displayFamily("ventral"); amblyommaDisplay();' value="ventral">
+					<input type="radio" id="ventral" name="mmpos" onClick='determineHardSoft("ventral"); displayFamily("ventral");' value="ventral">
 					<label for="ventral"> Ventral</label>
-					<input type="radio" id="terminal" name="mmpos" onClick='determineHardSoft("terminal"); displayFamily("terminal"); amblyommaDisplay();' value="terminal">
+					<input type="radio" id="terminal" name="mmpos" onClick='determineHardSoft("terminal"); displayFamily("terminal");' value="terminal">
 					<label for="terminal"> Terminal</label>
 				</div>
 		</div>
@@ -563,9 +591,9 @@ Charcoal: #333a44
 		<p><b>Number of Legs</b></p>
 			<img class="featureImg" src="img/6-8_legs.png" alt="Feature Image">
 			<div class="legs">
-				<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex(); amblyommaDisplay();' value=6>
+				<input type="radio" id="six_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=6>
 				<label for="six_legs"> 6 Legs</label>
-				<input type="radio" id="eight_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex(); amblyommaDisplay();' value=8>
+				<input type="radio" id="eight_legs" name="legs" onClick='onClick("legs"); displayInstar(); displaySex();' value=8>
 				<label for="eight_legs"> 8 Legs</label>
 			</div>
 		</div>
@@ -576,9 +604,9 @@ Charcoal: #333a44
 				<p><b> Genital Pore</b> </p>
 				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
 				<div class="genital"> 
-					<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex(); amblyommaDisplay();' value="present">
+					<input type="radio" id="presentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="present">
 						<label for="presentpore">Present</label>
-					<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex(); amblyommaDisplay();' value="absent">
+					<input type="radio" id="absentpore" name="genitalpore" onClick='onClick("genitalpore"); displayInstar(); displaySex();' value="absent">
 						<label for="absentpore">Absent</label>
 				</div>
 			</div>				
@@ -590,9 +618,9 @@ Charcoal: #333a44
 				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
 					<div>
 					<div class="scutum">
-					<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); displaySex(); amblyommaDisplay();' value="half_scutum">
+					<input type="radio" id="half_scutum" name="scutum" onClick='onClick("scutum"); initialiseSpeciesObject(); displaySex();' value="half_scutum">
 						<label for="halfscutum">Half</label>
-					<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex(); amblyommaDisplay();' value="full_scutum">
+					<input type="radio" id="full_scutum" name="scutum" onClick='onClick("scutum"); displaySex(); initialiseSpeciesObject();' value="full_scutum">
 						<label for="halfscutum">Full (Conscutum)</label>
 						</div>
 				</div>
@@ -615,7 +643,7 @@ Charcoal: #333a44
 				<div class="genusCard">
                 <p >Eyes Present</p>
 				<img class="featureImg" src="img/generic-feature-micro.png" alt="Feature Image">
-                <select name="eyes" id="eyes" onchange="genusSelect('eyes'); disableDropDown('eyes'); colouring();  showGenus(); amblyommaDisplay();">
+                <select name="eyes" id="eyes" onchange="genusSelect('eyes'); disableDropDown('eyes'); colouring();  showGenus();">
 					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
@@ -629,7 +657,7 @@ Charcoal: #333a44
 				<div class="genusCard">
                 <p>Festoons Present</p>
 				<img class="featureImg" src="img/generic-feature.png" alt="Feature Image">
-                <select name="festoons" id="festoons" onchange="genusSelect('festoons'); disableDropDown('festoons'); colouring();  showGenus(); amblyommaDisplay();">
+                <select name="festoons" id="festoons" onchange="genusSelect('festoons'); disableDropDown('festoons'); colouring();  showGenus();">
 					<option value="select">-select-</option>
                     <option value="unsure">Unsure</option>
                     <option value="yes">Yes</option>
@@ -684,7 +712,7 @@ Charcoal: #333a44
 				<div class=" genusCard">
 				<p for='Feature' >Dentition </p>
 					<img class='featureImg' src='img/generic-feature-micro.png' alt="Feature Image">
-					<select name="Feature" id="dentition" onchange="">
+					<select name="dentition" id="dentition" onchange="filterSpecies('dentition');">
 						<option value="select">-select-</option>
 						<option value="unsure">Unsure</option>
 						<option value="2/2">2/2</option>
@@ -699,7 +727,7 @@ Charcoal: #333a44
 				<div class=" genusCard">
 				<p for="Feature">Genital Apature Level</p>
 					<img class="featureImg" src="img/coxaLevel.png" alt="Feature Image">
-					<select name="Feature" id="genitalApatureLevel" onchange="">
+					<select name="genitalApatureLevel" id="genitalApatureLevel" onchange="filterSpecies('genitalApatureLevel');">
 						<option value="select">-select-</option>
 						<option value="unsure">Unsure</option>
 						<option value="intercoxal1">Intercoxal 1</option>
@@ -716,7 +744,7 @@ Charcoal: #333a44
 				<div class=" genusCard">
 				<p for="Feature">Spiracular Plate Shape</p>
 					<img class="featureImg" src="img/generic-feature-micro.png" alt="Feature Image">
-					<select name="Feature" id="genitalApatureLevel" onchange="">
+					<select name="spiracularPlate" id="spiracularPlate" onchange="filterSpecies('spiracularPlate');">
 						<option value="select">-select-</option>
 						<option value="unsure">Unsure</option>
 						<option value="comma">Comma</option>
@@ -731,7 +759,7 @@ Charcoal: #333a44
 				<div class=" genusCard">
 				<p for="Feature">Groove Between Porose Areas</p>
 					<img class="featureImg" src="img/generic-feature-micro.png" alt="Feature Image">
-					<select name="Feature" id="" onchange="">
+					<select name="poroseGroove" id="poroseGroove" onchange="filterSpecies('poroseGroove');">
 						<option value="select">-select-</option>
 						<option value="unsure">Unsure</option>
 						<option value="yes">Yes</option>
@@ -744,7 +772,7 @@ Charcoal: #333a44
 				<div class=" genusCard">
 				<p for="Feature">Puncutations in Scutum Around Eye</p>
 					<img class="featureImg" src="img/generic-feature-micro.png" alt="Feature Image">
-					<select name="Feature" id="" onchange="">
+					<select name="eyePuncutations" id="eyePuncutations" onchange="filterSpecies('eyePuncutations');">
 						<option value="select">-select-</option>
 						<option value="unsure">Unsure</option>
 						<option value="yes">Yes</option>
@@ -858,7 +886,7 @@ Charcoal: #333a44
 	
 	<!-- TESTER -->
 	
-	<button onclick="amblyommaScorer()"> Tester </button>
+	<button onclick="filterSpecies();"> Tester </button>
 	
 	<h3 id="species" class="title" style="margin: 10px;"> Species </h3>
 	

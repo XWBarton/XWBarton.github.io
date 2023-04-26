@@ -10,6 +10,8 @@ h2 {color: #8cb930;
 
 .top {height: 100px;}
 
+.logo {max-width: 90%}
+
 .row {
   display: flex;
   justify-content: center;
@@ -20,8 +22,8 @@ h2 {color: #8cb930;
   flex: ;
   padding: 5px;
 
-
 }
+
 
 button {
   background-color: #80b302; 
