@@ -24,6 +24,12 @@ h2 {color: #8cb930;
 
 }
 
+.para {
+	text-align: center;
+	margin-left: 10%;
+	margin-right: 10%
+}
+
 .column {
   flex: ;
   padding: 5px;
