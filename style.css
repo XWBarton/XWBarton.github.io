@@ -107,4 +107,11 @@ footer {
             vertical-align: middle; /* Aligns the emoji with the text */
         }
 
+hr {
+	width: 800px;
+	max-width: 80%;
+	text-align: center;
+	padding: 0px;
+}
+
 
