@@ -18,9 +18,8 @@ header, main, footer {
 header {
 	font-family: 'Courier New', monospace;
     text-align: center;
-	padding-bottom: 0px;
-	padding-left: 5e;
-	padding-right: 5e;
+  	display: flex;
+  	justify-content: space-between;
 }
 
 h1 {
