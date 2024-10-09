@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?	family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xavier Barton - Guides</title>
+    <link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+
+<header>
+	<h1>Shapefile to Weather<img src="../../images/weather.gif" alt="owl" style="height: 80px; width: auto; vertical-align: middle;"/></h1>
+</header>
+<hr>
+
+<main>
+	<h2 style="text-decoration-color: #3A7AF2;"> Rational </h2>
+		<p>Retrieve weather data from LongPaddock SILO (Australian) for elements in a shapefile and give a CSV monthly averages in a year.</p>
+
+	<h2 style="text-decoration-color: #3A7AF2;"> Input Files </h2>		
+
+		<p> Shapefile </p>
+			<ul>
+				<li><code>.shp</code></li>
+				<li><code>.cpg</code></li>
+				<li><code>.dbf</code></li>
+				<li><code>.prj</code></li>
+				<li><code>.shx</code></li>
+			</ul>
+			
+		<p>Learn how to produce this shapefile from a CSV of sample names, latitudes and longitudes here: <a class="link" href="../latlon-to-shp" class="button" target="_blank">Site Locations to Shapefile</a></p>
+		
+	<h2 style="text-decoration-color: #3A7AF2;">Scripts Used</h2>
+	
+		<p><a class="link" href="https://github.com/XWBarton/PhD/tree/main/Population%20Genetics%20Bioinformatics" class="button" target="_blank">Github Repository of Scripts</a></p>
+		
+		<h3>Environmental Data / Weather - SILO</h3>
+		    <ol>
+		        <li><code>silo_netCDF.py</code></li>
+		        <li><code>shape_netCDF.py</code></li>
+		    </ol>
+			
+	<h2 style="text-decoration-color: #3A7AF2;">Steps</h2>
+	
+	<h3>1. Retrieving Weather Data</h3>
+	
+		  <code>
+			python silo_netCDF.py   
+		  </code>
+		
+	<h4>Arguments</h4>
+	
+		<p>None. This is an interactive script. Just make your choices. If any of the other datatypes would be useful to you, let me know and I can add them to the script.</p>
+
+    <h4>Outputs</h4>
+	    <ul>
+	        <li>netCDF file for each year in your selected range. (e.g. <code>2018.max_temp.nc</code>)</li>
+	    </ul>
+	
+	<h3>2. Extract Weather Data from netCDF of shapefile elements</h3>
+	
+		  <code>
+			python shape_netCDF.py 'path/to/netCDF/file.nc' 'path/to/shapefile/file.shp' name-of-output.csv
+		  </code>
+		
+		<h4>Arguments</h4>
+		    <ul>
+		        <li>Path to your <code>.shp</code> (e.g. output_shapes.shp)</li>
+		 		<li>Path to your <code>.nc</code> (e.g. 2018.max_temp.nc)</li>
+		    </ul>
+
+   		 <h4>Outputs</h4>
+		    <ul>
+		        <li>Output average monthly weather for each element in shapefile (<code>name-of-output.csv</code>)</li>
+		    </ul>
+		
+		<p>Do this for each year and weather type netCDF you are investigating. I will proabaly automate this so you can do many at once in the future. </p>
+	
+</main>
+
+<footer><p>Please let me know of any bugs, they might just get fixed.</p></footer>
+
+</body>
+</html>

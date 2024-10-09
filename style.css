@@ -114,4 +114,17 @@ hr {
 	padding: 0px;
 }
 
+code {
+    color: #FF4125;
+}
+
+.link {
+    color: #3A7AF2
+}
+
+.link:visited{
+    color: #3A7AF2
+}
+
+
 

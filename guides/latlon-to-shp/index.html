@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?	family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xavier Barton - Guides</title>
+    <link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+
+<header>
+	<h1>Site Locations to Shapefile   <img src="../../images/map.gif" alt="owl" style="height: 80px; width: auto; vertical-align: middle;"/></h1>
+</header>
+<hr>
+
+<main>
+	<h2 style="text-decoration-color: #3A7AF2;"> Input Files </h2>
+		<ul>
+			<li> CSV (Comma Separated Values) file of sites </li>
+			<li> Must include column headers: <code>id</code>, <code>lat</code> and <code>lon</code> </li>
+				<ul>
+					<li><code>id</code>: Unique individual names </li>
+					<li><code>lat</code>:  Latitudes in decimal format e.g. -32.330703</li>
+					<li> <code>lon</code>: Longitudes in decimal format e.g. 115.912857</li>
+				</ul>
+			<li> Can include any other columns </li>
+		</ul>
+		
+	<h2 style="text-decoration-color: #3A7AF2;">Scripts Used</h2>
+	
+		<p><a class="link" href="https://github.com/XWBarton/PhD/tree/main/Population%20Genetics%20Bioinformatics" class="button" target="_blank">Github Repository of Scripts</a></p>
+		
+		<h3> Individual Grouping </h3>
+			<ol>
+				<li><code>group-by-radius.py</code></li>
+				<li><code>melt-alt-map.py</code></li>
+			</ol>
+			
+	<h2 style="text-decoration-color: #3A7AF2;">Steps</h2>
+	
+	<h3>1. Assigning Groups to Collection Sites</h3>
+	
+		  <code>
+			python group-by-radius.py '/path/to/sample_info.csv' 5 group_output.csv  
+		  </code>
+		
+	<h4>Arguments</h4>
+	    <ul>
+	        <li>Path to your CSV with samples, latitudes, and longitudes</li>
+	        <li>Number (in Km) representing how close sites have to be for assignment into a group</li>
+	        <li>Output CSV name of samples and which group they are assigned to</li>
+	    </ul>
+
+    <h4>Outputs</h4>
+	    <ul>
+	        <li>CSV of samples and which groups they were assigned to (<code>group_output.csv</code>)</li>
+	        <li>HTML map of collection sites coloured according to assigned group (<code>map.html</code>)</li>
+	    </ul>
+	
+	<h3>2. Creating Shapefiles from Groups</h3>
+	
+		  <code>
+			python melt-alt-map.py group_output.csv 2.5 
+		  </code>
+		
+		<h4>Arguments</h4>
+		    <ul>
+		        <li>Path to your CSV with grouped samples from the previous step (<code>group_output.csv</code>)</li>
+		        <li>Number (in Km) representing buffer distance around groups to make shapefile polygons, this should be half or less than your grouping distance unless you want to overlap group polygons</li>
+		    </ul>
+
+   		 <h4>Outputs</h4>
+		    <ul>
+		        <li>Shape file of groups (<code>output_shapes.shp</code>)</li>
+		        <ul>
+		            <li>This will also output other files including <code>.cpg</code>, <code>.dbf</code>, <code>.prj</code>, and <code>.shx</code>. Keep these in the same directory as the <code>.shp</code> if moving them.</li>
+		        </ul>
+		        <li>HTML map of shapefiles (<code>output_map.html</code>)</li>
+		    </ul>
+	
+</main>
+
+<footer><p>Please let me know of any bugs, they might just get fixed.</p></footer>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?	family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xavier Barton - Guides</title>
+    <link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+
+<header>
+	<h1>Shapefile to Land Use  <img src="../../images/tree.gif" alt="owl" style="height: 80px; width: auto; vertical-align: middle;"/></h1>
+</header>
+<hr>
+
+<main>
+	<h2 style="text-decoration-color: #3A7AF2;"> Rational </h2>		<p>Take a set of shapefiles, download the ESA WorldCover GeoTIFFs that the shapefile elements cover and determine the percentage of each land use type in each shape file element.</p>
+
+
+	<h2 style="text-decoration-color: #3A7AF2;"> Input Files </h2>		
+
+		<p> Shapefile </p>
+			<ul>
+				<li><code>.shp</code></li>
+				<li><code>.cpg</code></li>
+				<li><code>.dbf</code></li>
+				<li><code>.prj</code></li>
+				<li><code>.shx</code></li>
+			</ul>
+			
+		<p>Learn how to produce this shapefile from a CSV of sample names, latitudes and longitudes here: <a class="link" href="../latlon-to-shp" class="button" target="_blank">Site Locations to Sahpefile</a></p>
+
+	
+
+		
+	<h2 style="text-decoration-color: #3A7AF2;">Scripts Used</h2>
+	
+		<p><a class="link" href="https://github.com/XWBarton/PhD/tree/main/Population%20Genetics%20Bioinformatics" class="button" target="_blank">Github Repository of Scripts</a></p>
+		
+		<h3>Environmental Data / Land Use - ESA WorldCover</h3>
+		    <ol>
+		        <li><code>download-from-shapefile.py</code></li>
+		        <li><code>percentv2.py</code></li>
+		        <li><code>landuse_pies.py</code></li>
+		    </ol>
+			
+	<h2 style="text-decoration-color: #3A7AF2;">Steps</h2>
+
+    <h3>1. Downloading ESA LandCover tiles</h3>
+	    <pre><code>python download_from_shapefile.py -s '/path/to/shapefile/output_shapes.shp'</code></pre>
+	    <h4>Arguments</h4>
+	    <ul>
+	        <li>Path to your <code>.shp</code> (e.g. output_shapes.shp)</li>
+	    </ul>
+	    <h3>Outputs</h3>
+	    <ul>
+	        <li>A number of <code>.tif</code> files titled <code>ESA_WorldCover_10m_2021_v200_XXXXXX_Map.tif</code></li>
+	        <ul>
+	            <li>There can be a variation in the number of files downloaded depending on the spread of your collection sites, normally 2 or 3 if it's within the state.</li>
+	            <li>This <code>.tif</code> file is essentially like a map with multiple layers of a particular region; some groups (shapes/polygons) will be covered in one file, and other groups will be in another.</li>
+	        </ul>
+	    </ul>
+
+    <h3>2. Extracting Land Use within Shapefiles</h3>
+		    <pre><code>python percentv2.py '/path/to/geotiffs_folder' 'path/to/shapefile.shp' landuse_output.csv</code></pre>
+		
+		    <p>Don’t worry about the warnings as long as it says “Results saved to …”</p>
+		
+		    <p>Each column in the CSV represents a percentage of each land type contained within each shapefile element.</p>
+		
+		    <h3>ESA Land Use Codes</h3>
+		    <table>
+		        <thead>
+		            <tr>
+		                <th>Layer (Class)</th>
+		                <th>Colour (RGB)</th>
+		                <th>Hex</th>
+		                <th>Colour</th>
+		                <th>Map Code</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr>
+		                <td>Trees</td>
+		                <td>0,100,0</td>
+		                <td>#006400</td>
+		                <td style="background-color: #006400; color: white;">Trees</td>
+		                <td>10</td>
+		            </tr>
+		            <tr>
+		                <td>Shrub Land</td>
+		                <td>255, 187, 34</td>
+		                <td>#FFBB22</td>
+		                <td style="background-color: #FFBB22;">Shrub Land</td>
+		                <td>20</td>
+		            </tr>
+		            <tr>
+		                <td>Grassland</td>
+		                <td>255, 255, 76</td>
+		                <td>#FFFF4C</td>
+		                <td style="background-color: #FFFF4C;">Grassland</td>
+		                <td>30</td>
+		            </tr>
+		            <tr>
+		                <td>Cropland</td>
+		                <td>240, 150, 255</td>
+		                <td>#F096FF</td>
+		                <td style="background-color: #F096FF;">Cropland</td>
+		                <td>40</td>
+		            </tr>
+		            <tr>
+		                <td>Built</td>
+		                <td>250, 0, 0</td>
+		                <td>#FA0000</td>
+		                <td style="background-color: #FA0000; color: white;">Built</td>
+		                <td>50</td>
+		            </tr>
+		            <tr>
+		                <td>Bare / Sparse Vegetation</td>
+		                <td>180, 180, 180</td>
+		                <td>#B4B4B4</td>
+		                <td style="background-color: #B4B4B4;">Bare / Sparse Vegetation</td>
+		                <td>60</td>
+		            </tr>
+		            <tr>
+		                <td>Snow and Ice</td>
+		                <td>240, 240, 240</td>
+		                <td>#F0F0F0</td>
+		                <td style="background-color: #F0F0F0;">Snow and Ice</td>
+		                <td>70</td>
+		            </tr>
+		            <tr>
+		                <td>Permanent Water Bodies</td>
+		                <td>0, 100, 200</td>
+		                <td>#0064C8</td>
+		                <td style="background-color: #0064C8; color: white;">Permanent Water Bodies</td>
+		                <td>80</td>
+		            </tr>
+		            <tr>
+		                <td>Herbaceous Wetland</td>
+		                <td>0, 150, 160</td>
+		                <td>#0096A0</td>
+		                <td style="background-color: #0096A0; color: white;">Herbaceous Wetland</td>
+		                <td>90</td>
+		            </tr>
+		            <tr>
+		                <td>Mangroves</td>
+		                <td>0, 207, 117</td>
+		                <td>#00CF75</td>
+		                <td style="background-color: #00CF75;">Mangroves</td>
+		                <td>95</td>
+		            </tr>
+		            <tr>
+		                <td>Moss and Lichen</td>
+		                <td>250, 230, 160</td>
+		                <td>#FAE6A0</td>
+		                <td style="background-color: #FAE6A0;">Moss and Lichen</td>
+		                <td>100</td>
+		            </tr>
+		        </tbody>
+		    </table>
+		
+		    <h4>Arguments</h4>
+		    <ul>
+		        <li>Path to your <code>.shp</code> from previous steps (e.g. output_shapes.shp)</li>
+		        <li>Path to a directory (folder) containing GeoTIFFs downloaded in previous step (e.g. /geotifs)</li>
+		    </ul>
+		    <h4>Outputs</h4>
+		    <ul>
+		        <li>CSV containing assigned groups and the percentage of each land use type that the shapefile polygon contains (e.g. landuse_output.csv)</li>
+		    </ul>
+
+    <h3>3. Generating a Map of Land Use in Each Group (optional)</h3>
+   		 <pre><code>python landuse_pies.py '/path/to/shapefile/output_shapes.shp' '/path/to/landuse/percentages/landuse_output.csv' </code></pre>
+
+		<h4>Arguments</h4>
+		    <ul>
+		        <li>Path to your <code>.shp</code> from previous steps (e.g. output_shapes.shp)</li>
+		        <li>Path to the CSV of land use percentages produced in previous step (e.g. landuse_output.csv)</li>
+		    </ul>
+    		<h4>Outputs</h4>
+		    <ul>
+		        <li>HTML map containing group polygons and pie charts of land use cover (landuse_pies.html)</li>
+		    </ul>
+	
+	
+</main>
+
+<footer><p>Please let me know of any bugs, they might just get fixed.</p></footer>
+
+</body>
+</html>
