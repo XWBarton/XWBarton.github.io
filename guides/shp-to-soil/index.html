@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?	family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xavier Barton - Guides</title>
+    <link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+
+<header>
+	<h1>Shapefile to Soil Data  <img src="../../images/soil.gif" alt="owl" style="height: 80px; width: auto; vertical-align: middle;"/></h1>
+</header>
+<hr>
+
+<main>
+	<h2 style="text-decoration-color: #3A7AF2;"> Rational </h2>
+		<p>Retrieve soil data geoTIFFs from SGLA and extract data contained within shapefile elements. </p>
+        
+        <p>Data will be: Available Water Capacity, Coarse Fragments, Clay Percentage, Total Nitrogen Percentage, pH CaCl2, Total Phosphorus Percentage, Silt Percentage, Sand Percentage, Organic Carbon Percentage, Available Phosphorus (mg)</p>
+
+	<h2 style="text-decoration-color: #3A7AF2;"> Input Files </h2>		
+
+		<p> Shapefile </p>
+			<ul>
+				<li><code>.shp</code></li>
+				<li><code>.cpg</code></li>
+				<li><code>.dbf</code></li>
+				<li><code>.prj</code></li>
+				<li><code>.shx</code></li>
+			</ul>
+			
+		<p>Learn how to produce this shapefile from a CSV of sample names, latitudes and longitudes here: <a class="link" href="../latlon-to-shp" class="button" target="_blank">Site Locations to Shapefile</a></p>
+		
+		<p>You will also need to get an API key from TERN to acsess the current data: <a class="link" href="https://esoil.io/TERNLandscapes/Public/Pages/SLGA/GetData-COGSDataStore.html#AccessingCOGs">SLGA Archive </a> </p>
+		
+	<h2 style="text-decoration-color: #3A7AF2;">Scripts Used</h2>
+	
+		<p><a class="link" href="https://github.com/XWBarton/CorePopGen" class="button" target="_blank">Github Repository of Scripts</a></p>
+		
+		<h3>Environmental Data / Soil - SGLA</h3>
+		    <ol>
+		        <li><code>download_soil.py</code></li>
+		        <li><code>shp_soil.py</code></li>
+		    </ol>
+			
+	<h2 style="text-decoration-color: #3A7AF2;">Steps</h2>
+	
+	<h3>1. Retrieving Soil Data</h3>
+	
+		  <code>
+			download_soil.py --apikey YOUR_API_KEY
+		  </code>
+		
+	<h4>Arguments</h4>
+	
+        <ul>
+            <li>Your TERN API key (e.g. asdgfASGEJfhd563ATYfgsYHgSDFko3456cfgs6fsy89wa!gVg)</li>
+        </ul>
+
+    <h4>Outputs</h4>
+	    <ul>
+	        <li>geoTIFFs of specifed soil types (e.g. <code>Available_Water_Capacity_0-5cm.tif </code>)</li>
+	    </ul>
+	
+	<h3>2. Extract Soil Data from geoTIFF with shapefile elements</h3>
+	
+		  <code>
+			python shp_soil.py 'path/to/shapefile/file.shp' 'path/to/geoTIFF/folder/' ./
+		  </code>
+		
+		<h4>Arguments</h4>
+		    <ul>
+		        <li>Path to your <code>.shp</code> (e.g. output_shapes.shp)</li>
+		 		<li>Path to your directory containig downloaded geoTIFFs (e.g. Available_Water_Capacity_0-5cm.tif)</li>
+                <li>Output directory for CSVs </li> 
+		    </ul>
+
+   		 <h4>Outputs</h4>
+		    <ul>
+		        <li>CSVs of mean, minimum and maxnimum soil attributes within each shapefile element.</li>
+		    </ul>
+	
+</main>
+
+<footer><p>Please let me know of any bugs, they might just get fixed.</p></footer>
+
+</body>
+</html>
