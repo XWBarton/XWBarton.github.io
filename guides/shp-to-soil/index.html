@@ -19,9 +19,21 @@
 
 <main>
 	<h2 style="text-decoration-color: #3A7AF2;"> Rational </h2>
+    
+        <strong> Option One</strong>
 		<p>Retrieve soil data geoTIFFs from SGLA and extract data contained within shapefile elements. </p>
         
         <p>Data will be: Available Water Capacity, Coarse Fragments, Clay Percentage, Total Nitrogen Percentage, pH CaCl2, Total Phosphorus Percentage, Silt Percentage, Sand Percentage, Organic Carbon Percentage, Available Phosphorus</p>
+        <p><i>This is Australia specific data.</i></p>
+        
+        <strong> Option Two</strong>
+        <p> Retrieve soil data from DPIRD-077 dataset: Dominant soil groups - Highest probability. </p>
+        
+		<p>Available on dataWA: <a class="link" href="https://catalogue.data.wa.gov.au/dataset/dominant-soil-groups-max1" class="button" target="_blank">DPIRD077</a></p>
+        
+          <p><i>This is W.A. specific data.</i></p>
+          
+    <h2> Option One</h2>
 
 	<h2 style="text-decoration-color: #3A7AF2;"> Input Files </h2>		
 
@@ -84,6 +96,55 @@
 		    <ul>
 		        <li>CSVs of mean, minimum and maxnimum soil attributes within each shapefile element.</li>
 		    </ul>
+            
+      <h2> Option Two</h2>
+      
+      <h2 style="text-decoration-color: #3A7AF2;"> Input Files </h2>		
+
+		<p> Shapefile </p>
+			<ul>
+				<li><code>.shp</code></li>
+				<li><code>.cpg</code></li>
+				<li><code>.dbf</code></li>
+				<li><code>.prj</code></li>
+				<li><code>.shx</code></li>
+			</ul>
+			
+		<p>Learn how to produce this shapefile from a CSV of sample names, latitudes and longitudes here: <a class="link" href="../latlon-to-shp" class="button" target="_blank">Site Locations to Shapefile</a></p>
+		
+	<h2 style="text-decoration-color: #3A7AF2;">Scripts Used</h2>
+	
+		<p><a class="link" href="https://github.com/XWBarton/CorePopGen" class="button" target="_blank">Github Repository of Scripts</a></p>
+		
+		<h3>Environmental Data / Soil Type - DPIRD077</h3>
+		    <ol>
+		        <li><code>dpird-077.py</code></li>
+		    </ol>
+			
+	<h2 style="text-decoration-color: #3A7AF2;">Steps</h2>
+	
+	<h3>1. Retrieving Soil Type Data</h3>
+    
+        <p> Download geoTIFF and lookup table (as a CSV) of DPIRD077. Rename the lookup table lookup table - <code>lookup.csv</code></p>
+    
+    		<p>Available on dataWA: <a class="link" href="https://catalogue.data.wa.gov.au/dataset/dominant-soil-groups-max1" class="button" target="_blank">DPIRD077</a></p>
+    
+	
+	<h3>2. Extract Soil Data from geoTIFF with shapefile elements</h3>
+	
+		  <code>
+			python dpird-077.py 'path/to/shapefile/file.shp'
+		  </code>
+		
+		<h4>Arguments</h4>
+		    <ul>
+		        <li>Path to your <code>.shp</code> (e.g. output_shapes.shp)</li>
+		    </ul>
+
+   		 <h4>Outputs</h4>
+		    <ul>
+		        <li>CSVs of WASG name percentages for each shapefile element.</li>
+		    </ul>  
 	
 </main>
 
