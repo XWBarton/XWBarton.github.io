@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HexCoder</title>
+  <style>
+    body {
+      font-family: system-ui, serif;
+      text-align: center;
+      background: #f5f5f5;
+      padding: 2rem;}
+
+    .swatches {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;}
+
+    .box {
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+      border: 2px solid #ccc;}
+
+    input {
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      width: 140px;
+      text-transform: uppercase;}
+
+    button {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
+      cursor: pointer;}
+
+    #feedback {margin-top: 1rem; font-weight: bold;}
+
+    #score {margin-top: 0.5rem; font-family: monospace;}
+    
+    h1{margin-top: 0.5rem; font-family: monospace; font-size: xxx-large; margin: 5px}
+    
+  </style>
+</head>
+<body>
+
+  <h1>HexCoder</h1>
+  <i> A colour hexcode trainer </i>
+
+  <div class="swatches">
+    <div>
+      <div id="target" class="box"></div>
+      <p>Target</p>
+    </div>
+    <div>
+      <div id="guessBox" class="box"></div>
+      <p>Your guess</p>
+    </div>
+  </div>
+
+<form onsubmit="check(); return false;">
+  <input id="guess" placeholder="#RRGGBB" maxlength="7">
+  <button type="submit">Check</button>
+  <button type="button" onclick="newRound()">Next</button>
+</form>
+
+  <div id="feedback"></div>
+  <div id="score"></div>
+  
+<a href="hexcode.html" style="display: block; padding-top: 10%;"> Learn Hexcode </a>
+  
+  <script>
+    let targetHex = '';
+
+    function randomHex() {
+      return '#' + Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, '0')
+        .toUpperCase();
+    }
+
+    function hexToRgb(hex) {
+      const n = parseInt(hex.slice(1), 16);
+      return {
+        r: (n >> 16) & 255,
+        g: (n >> 8) & 255,
+        b: n & 255
+      };
+    }
+
+    function colourDistance(a, b) {
+      return Math.round(Math.sqrt(
+        Math.pow(a.r - b.r, 2) +
+        Math.pow(a.g - b.g, 2) +
+        Math.pow(a.b - b.b, 2)
+      ));
+    }
+
+    function check() {
+      const input = document.getElementById('guess').value.toUpperCase();
+
+      if (!/^#[0-9A-F]{6}$/.test(input)) {
+        document.getElementById('feedback').textContent =
+          '❌ Please enter a valid hex code (#RRGGBB)';
+        return;
+      }
+
+      const targetRGB = hexToRgb(targetHex);
+      const guessRGB = hexToRgb(input);
+
+      const distance = colourDistance(targetRGB, guessRGB);
+      const accuracy = Math.max(0, 100 - Math.round((distance / 441) * 100));
+
+      document.getElementById('guessBox').style.background = input;
+      document.getElementById('feedback').textContent =
+        distance === 0 ? '🎯 Perfect match!' : 'Nice try!';
+      document.getElementById('score').textContent =
+        `Distance: ${distance} / 441 — Accuracy: ${accuracy}%`;
+    }
+
+    function newRound() {
+      targetHex = randomHex();
+      document.getElementById('target').style.background = targetHex;
+      document.getElementById('guessBox').style.background = '#FFFFFF';
+      document.getElementById('guess').value = '';
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('score').textContent = '';
+    }
+
+    newRound();
+  </script>
+
+</body>
+</html>
